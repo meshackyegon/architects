@@ -1,0 +1,16 @@
+[17-Jan-2023 13:11:09 Africa/Nairobi] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function delete(), 2 passed in /home/veseninternal/public_html/realtors/model/delete/index.php on line 11 and exactly 3 expected in /home/veseninternal/public_html/realtors/model/helper/database/delete_query_helper.php:8
+Stack trace:
+#0 /home/veseninternal/public_html/realtors/model/delete/index.php(11): delete('banner', '')
+#1 {main}
+  thrown in /home/veseninternal/public_html/realtors/model/helper/database/delete_query_helper.php on line 8
+[17-Jan-2023 13:14:53 Africa/Nairobi] PHP Warning:  Use of undefined constant ALT_DB_USERNAME - assumed 'ALT_DB_USERNAME' (this will throw an Error in a future version of PHP) in /home/veseninternal/public_html/realtors/model/helper/database/insert_delete_edit_helper.php on line 15
+[17-Jan-2023 13:14:53 Africa/Nairobi] PHP Warning:  Use of undefined constant ALT_DB_PASSWORD - assumed 'ALT_DB_PASSWORD' (this will throw an Error in a future version of PHP) in /home/veseninternal/public_html/realtors/model/helper/database/insert_delete_edit_helper.php on line 15
+[17-Jan-2023 13:14:53 Africa/Nairobi] PHP Warning:  mysqli_connect(): (HY000/1045): Access denied for user 'ALT_DB_USERNAME'@'localhost' (using password: YES) in /home/veseninternal/public_html/realtors/model/helper/database/connect_db.php on line 12
+[17-Jan-2023 13:14:53 Africa/Nairobi] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home/veseninternal/public_html/realtors/model/helper/database/insert_delete_edit_helper.php:15) in /home/veseninternal/public_html/realtors/model/helper/logs.php on line 26
+[17-Jan-2023 14:13:16 Africa/Nairobi] PHP Warning:  Invalid argument supplied for foreach() in /home/veseninternal/public_html/realtors/model/delete/index.php on line 30
+[17-Jan-2023 14:13:45 Africa/Nairobi] PHP Warning:  Invalid argument supplied for foreach() in /home/veseninternal/public_html/realtors/model/delete/index.php on line 30
+[17-Jan-2023 14:35:59 Africa/Nairobi] PHP Fatal error:  Uncaught ArgumentCountError: Too few arguments to function delete(), 0 passed in /home/veseninternal/public_html/realtors/model/delete/index.php on line 115 and exactly 3 expected in /home/veseninternal/public_html/realtors/model/helper/database/delete_query_helper.php:8
+Stack trace:
+#0 /home/veseninternal/public_html/realtors/model/delete/index.php(115): delete()
+#1 {main}
+  thrown in /home/veseninternal/public_html/realtors/model/helper/database/delete_query_helper.php on line 8

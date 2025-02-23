@@ -1,0 +1,435 @@
+2024-09-09 13:25:22 - Standing order callback function started
+2024-09-09 13:25:22 - Getting request body
+2024-09-09 13:25:22 - Request body: {
+  "responseHeader" : {
+    "responseRefID" : "56d6ee88-c5f5-4b87-b48a-6907511b65ba",
+    "requestRefID" : "56d6ee88-c5f5-4b87-b48a-6907511b65ba",
+    "responseCode" : "0",
+    "responseDescription" : "The service request is processed successfully."
+  },
+  "responseBody" : {
+    "responseData" : [ {
+      "name" : "TransactionID",
+      "value" : "SI9IYMCOC4"
+    }, {
+      "name" : "responseCode",
+      "value" : "0"
+    }, {
+      "name" : "Status",
+      "value" : "OKAY"
+    }, {
+      "name" : "Msisdn",
+      "value" : "254794802072"
+    } ]
+  }
+}
+2024-09-09 13:25:22 - Checking if string is JSON
+2024-09-09 13:25:22 - Result: true
+2024-09-09 13:25:22 - Request data: Array
+(
+    [responseHeader] => Array
+        (
+            [responseRefID] => 56d6ee88-c5f5-4b87-b48a-6907511b65ba
+            [requestRefID] => 56d6ee88-c5f5-4b87-b48a-6907511b65ba
+            [responseCode] => 0
+            [responseDescription] => The service request is processed successfully.
+        )
+
+    [responseBody] => Array
+        (
+            [responseData] => Array
+                (
+                    [0] => Array
+                        (
+                            [name] => TransactionID
+                            [value] => SI9IYMCOC4
+                        )
+
+                    [1] => Array
+                        (
+                            [name] => responseCode
+                            [value] => 0
+                        )
+
+                    [2] => Array
+                        (
+                            [name] => Status
+                            [value] => OKAY
+                        )
+
+                    [3] => Array
+                        (
+                            [name] => Msisdn
+                            [value] => 254794802072
+                        )
+
+                )
+
+        )
+
+)
+
+2024-09-09 13:25:22 - Standing order information stored successfully
+2024-09-09 13:25:22 - Computing: Sending message
+2024-09-09 13:25:22 - Response: Array
+(
+    [status] => 1
+    [code] => 200
+    [message] => Standing order information stored successfully
+    [data] => Array
+        (
+            [order_id] => 56d6ee88-c5f5-4b87-b48a-6907511b65ba
+            [status] => OKAY
+            [transaction_id] => SI9IYMCOC4
+        )
+
+)
+
+2024-09-10 13:01:51 - Standing order callback function started
+2024-09-10 13:01:51 - Getting request body
+2024-09-10 13:01:51 - Request body: {
+  "responseHeader" : {
+    "responseRefID" : "c751403a-d7cb-4684-a1d7-b0dde5ba6495",
+    "requestRefID" : "c751403a-d7cb-4684-a1d7-b0dde5ba6495",
+    "responseCode" : "1037",
+    "responseDescription" : "Internal Server Exception"
+  },
+  "responseBody" : {
+    "responseData" : [ {
+      "name" : "TransactionID",
+      "value" : "0000000000"
+    }, {
+      "name" : "responseCode",
+      "value" : "1037"
+    }, {
+      "name" : "Status",
+      "value" : "ERROR"
+    }, {
+      "name" : "Msisdn",
+      "value" : "254794802072"
+    } ]
+  }
+}
+2024-09-10 13:01:51 - Checking if string is JSON
+2024-09-10 13:01:51 - Result: true
+2024-09-10 13:01:51 - Request data: Array
+(
+    [responseHeader] => Array
+        (
+            [responseRefID] => c751403a-d7cb-4684-a1d7-b0dde5ba6495
+            [requestRefID] => c751403a-d7cb-4684-a1d7-b0dde5ba6495
+            [responseCode] => 1037
+            [responseDescription] => Internal Server Exception
+        )
+
+    [responseBody] => Array
+        (
+            [responseData] => Array
+                (
+                    [0] => Array
+                        (
+                            [name] => TransactionID
+                            [value] => 0000000000
+                        )
+
+                    [1] => Array
+                        (
+                            [name] => responseCode
+                            [value] => 1037
+                        )
+
+                    [2] => Array
+                        (
+                            [name] => Status
+                            [value] => ERROR
+                        )
+
+                    [3] => Array
+                        (
+                            [name] => Msisdn
+                            [value] => 254794802072
+                        )
+
+                )
+
+        )
+
+)
+
+2024-09-10 13:01:51 - Standing order information stored successfully
+2024-09-10 13:01:51 - Computing: Sending message
+2024-09-10 13:01:51 - Response: Array
+(
+    [status] => 1
+    [code] => 200
+    [message] => Standing order information stored successfully
+    [data] => Array
+        (
+            [order_id] => c751403a-d7cb-4684-a1d7-b0dde5ba6495
+            [status] => ERROR
+            [transaction_id] => 0000000000
+        )
+
+)
+
+2024-09-10 13:09:53 - Standing order callback function started
+2024-09-10 13:09:53 - Getting request body
+2024-09-10 13:09:53 - Request body: {
+  "responseHeader" : {
+    "responseRefID" : "6315d0a3-b178-4fd1-bc88-c22270d1f51f",
+    "requestRefID" : "6315d0a3-b178-4fd1-bc88-c22270d1f51f",
+    "responseCode" : "1037",
+    "responseDescription" : "Internal Server Exception"
+  },
+  "responseBody" : {
+    "responseData" : [ {
+      "name" : "TransactionID",
+      "value" : "0000000000"
+    }, {
+      "name" : "responseCode",
+      "value" : "1037"
+    }, {
+      "name" : "Status",
+      "value" : "ERROR"
+    }, {
+      "name" : "Msisdn",
+      "value" : "254794802072"
+    } ]
+  }
+}
+2024-09-10 13:09:53 - Checking if string is JSON
+2024-09-10 13:09:53 - Result: true
+2024-09-10 13:09:53 - Request data: Array
+(
+    [responseHeader] => Array
+        (
+            [responseRefID] => 6315d0a3-b178-4fd1-bc88-c22270d1f51f
+            [requestRefID] => 6315d0a3-b178-4fd1-bc88-c22270d1f51f
+            [responseCode] => 1037
+            [responseDescription] => Internal Server Exception
+        )
+
+    [responseBody] => Array
+        (
+            [responseData] => Array
+                (
+                    [0] => Array
+                        (
+                            [name] => TransactionID
+                            [value] => 0000000000
+                        )
+
+                    [1] => Array
+                        (
+                            [name] => responseCode
+                            [value] => 1037
+                        )
+
+                    [2] => Array
+                        (
+                            [name] => Status
+                            [value] => ERROR
+                        )
+
+                    [3] => Array
+                        (
+                            [name] => Msisdn
+                            [value] => 254794802072
+                        )
+
+                )
+
+        )
+
+)
+
+2024-09-10 13:09:53 - Standing order information stored successfully
+2024-09-10 13:09:53 - Computing: Sending message
+2024-09-10 13:09:53 - Response: Array
+(
+    [status] => 1
+    [code] => 200
+    [message] => Standing order information stored successfully
+    [data] => Array
+        (
+            [order_id] => 6315d0a3-b178-4fd1-bc88-c22270d1f51f
+            [status] => ERROR
+            [transaction_id] => 0000000000
+        )
+
+)
+
+2024-09-10 13:11:12 - Standing order callback function started
+2024-09-10 13:11:12 - Getting request body
+2024-09-10 13:11:12 - Request body: {
+  "responseHeader" : {
+    "responseRefID" : "633e33e5-6d27-4396-adfa-3d179b753956",
+    "requestRefID" : "633e33e5-6d27-4396-adfa-3d179b753956",
+    "responseCode" : "1037",
+    "responseDescription" : "Internal Server Exception"
+  },
+  "responseBody" : {
+    "responseData" : [ {
+      "name" : "TransactionID",
+      "value" : "0000000000"
+    }, {
+      "name" : "responseCode",
+      "value" : "1037"
+    }, {
+      "name" : "Status",
+      "value" : "ERROR"
+    }, {
+      "name" : "Msisdn",
+      "value" : "254794802072"
+    } ]
+  }
+}
+2024-09-10 13:11:12 - Checking if string is JSON
+2024-09-10 13:11:12 - Result: true
+2024-09-10 13:11:12 - Request data: Array
+(
+    [responseHeader] => Array
+        (
+            [responseRefID] => 633e33e5-6d27-4396-adfa-3d179b753956
+            [requestRefID] => 633e33e5-6d27-4396-adfa-3d179b753956
+            [responseCode] => 1037
+            [responseDescription] => Internal Server Exception
+        )
+
+    [responseBody] => Array
+        (
+            [responseData] => Array
+                (
+                    [0] => Array
+                        (
+                            [name] => TransactionID
+                            [value] => 0000000000
+                        )
+
+                    [1] => Array
+                        (
+                            [name] => responseCode
+                            [value] => 1037
+                        )
+
+                    [2] => Array
+                        (
+                            [name] => Status
+                            [value] => ERROR
+                        )
+
+                    [3] => Array
+                        (
+                            [name] => Msisdn
+                            [value] => 254794802072
+                        )
+
+                )
+
+        )
+
+)
+
+2024-09-10 13:11:12 - Standing order information stored successfully
+2024-09-10 13:11:12 - Computing: Sending message
+2024-09-10 13:11:12 - Response: Array
+(
+    [status] => 1
+    [code] => 200
+    [message] => Standing order information stored successfully
+    [data] => Array
+        (
+            [order_id] => 633e33e5-6d27-4396-adfa-3d179b753956
+            [status] => ERROR
+            [transaction_id] => 0000000000
+        )
+
+)
+
+2024-09-10 16:40:57 - Standing order callback function started
+2024-09-10 16:40:57 - Getting request body
+2024-09-10 16:40:57 - Request body: {
+  "responseHeader" : {
+    "responseRefID" : "386123fa-5c4a-414e-8fcc-7397fb83b6db",
+    "requestRefID" : "386123fa-5c4a-414e-8fcc-7397fb83b6db",
+    "responseCode" : "1005",
+    "responseDescription" : "The element null is invalid."
+  },
+  "responseBody" : {
+    "responseData" : [ {
+      "name" : "TransactionID",
+      "value" : "SIA0000000"
+    }, {
+      "name" : "responseCode",
+      "value" : "1005"
+    }, {
+      "name" : "Status",
+      "value" : "ERROR"
+    }, {
+      "name" : "Msisdn",
+      "value" : "254794802072"
+    } ]
+  }
+}
+2024-09-10 16:40:57 - Checking if string is JSON
+2024-09-10 16:40:57 - Result: true
+2024-09-10 16:40:57 - Request data: Array
+(
+    [responseHeader] => Array
+        (
+            [responseRefID] => 386123fa-5c4a-414e-8fcc-7397fb83b6db
+            [requestRefID] => 386123fa-5c4a-414e-8fcc-7397fb83b6db
+            [responseCode] => 1005
+            [responseDescription] => The element null is invalid.
+        )
+
+    [responseBody] => Array
+        (
+            [responseData] => Array
+                (
+                    [0] => Array
+                        (
+                            [name] => TransactionID
+                            [value] => SIA0000000
+                        )
+
+                    [1] => Array
+                        (
+                            [name] => responseCode
+                            [value] => 1005
+                        )
+
+                    [2] => Array
+                        (
+                            [name] => Status
+                            [value] => ERROR
+                        )
+
+                    [3] => Array
+                        (
+                            [name] => Msisdn
+                            [value] => 254794802072
+                        )
+
+                )
+
+        )
+
+)
+
+2024-09-10 16:40:57 - Standing order information stored successfully
+2024-09-10 16:40:57 - Computing: Sending message
+2024-09-10 16:40:57 - Response: Array
+(
+    [status] => 1
+    [code] => 200
+    [message] => Standing order information stored successfully
+    [data] => Array
+        (
+            [order_id] => 386123fa-5c4a-414e-8fcc-7397fb83b6db
+            [status] => ERROR
+            [transaction_id] => SIA0000000
+        )
+
+)
+

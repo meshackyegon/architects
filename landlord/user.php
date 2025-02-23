@@ -1,0 +1,148 @@
+<?php
+$page        = 'user';
+
+//  require_once '../path.php';
+require_once 'header.php';
+
+$current_year   = date("Y");
+
+$user = get_by_id('user', security('id', 'GET'));
+
+if (!empty($user)) {
+    session_assignment(array(
+        'edit' => $user['user_id']
+    ), false);
+    $require = false;
+} else {
+    $require = true;
+}
+
+?>
+
+
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <!-- DataTales Example -->
+    <div class="card shadow mb-4">
+        <div class="card-body card-secondary">
+            <div class="card-header">
+                <h3 class="card-title">
+                    Add users </h3>
+            </div>
+            <div class="mt-4">
+                <form enctype="multipart/form-data" action="<?= model_url ?>user" method="POST">
+                    <div class="row clearfix">
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <?php
+                            input_hybrid('Name', 'user_name', $user, $require);
+                            ?>
+                            <div class="form-group">
+                                <label for='email'>Email</label>
+                                <div class="input-group">
+                                    <input autocomplete="on" type="text" class="form-control" name="user_email" id="email" placeholder="Email" value="<?php echo isset($user['user_email']) ? $user['user_email'] : ''; ?>" onBlur="checkAvailabilityEmailid()" required>
+                                </div>
+                                <span id="emailid-availability" style="font-size:12px;"></span>
+                            </div>
+
+
+                            <?php
+                            input_hybrid('Phone Number', 'user_phone', $user, $require);
+
+                            if (empty($user)) {
+                                input_hybrid('password', 'user_password', $user, $require);
+                            }
+
+                            input_hybrid('ID/Passport Number (optional)', 'user_passport', $user, false);
+                            input_hybrid('KRA', 'user_kra', $user, $require);
+                            input_hybrid('Date of Birth (optional)', 'user_dob', $user, false, 'date');
+
+
+
+                            if (!empty($user['user_image'])) :
+                                $require = false;
+                                $image = $user['user_image'];
+                            else :
+                                $require = false;
+                                $image = 'white_bg_image.png';
+                            endif;
+                            input_hybrid("user Image (optional)", "user_image", $user, false, "file", 'my_img', '', 'img');
+                            ?>
+                            <img alt="image" src="<?= file_url . $image ?>" id="img_loader" style="border-radius: 5%; border-color:grey; border-style: solid; height:auto; width: 60%;">
+
+
+
+                            <div>
+                                <h4 style="text-align:center;margin-top:10px;text-align:center;">Next of Kin Information</h4>
+                            </div>
+
+                            <?php
+                            input_hybrid('Next of Kin Name', 'kin_name', $user, $require);
+                            input_hybrid('Next of Kin Phone Number', 'kin_phone', $user, $require);
+                            ?>
+
+                            <div>
+                                <h4 style="text-align:center;margin-top:10px;text-align:center;">Standing Order Information</h4>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="amount_figures">Amount (in figures):</label>
+                                <input class="form-control" type="text" id="amount_figures" placeholder="Enter amount in figures">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="day_of_month">Which Day of each month:</label>
+                                <input class="form-control" type="number" id="day_of_month" placeholder="Enter day of month">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="start_date">Starting From:</label>
+                                <input class="form-control" type="date" id="start_date" placeholder="Enter start date (YYYY/MM/DD)">
+                            </div>
+                            
+                             <input hidden name="added_by" value="<?= $profile['landlord_id'] ?>" />
+
+
+
+
+                            <div class="clearfix"></div>
+
+                            <p style="font-weight: 700;">
+                                This user has accepted the request and authorization of RentPesa to transfer the amount specified above on the specified date of each and every month commencing
+                                on the date provided above until advised otherwise.
+
+                            </p>
+
+
+                        </div>
+
+
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 mb-4 text-center">
+                            <div class="text-center">
+                                <button class="btn btn-primary" type="submit" id="submit">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Main Content -->
+
+<script>
+    function checkAvailabilityEmailid() {
+        jQuery.ajax({
+            url: "../check_available.php",
+            data: 'email=' + $("#email").val(),
+            type: "POST",
+            success: function(data) {
+                $("#emailid-availability").html(data);
+            },
+            error: function() {}
+        });
+    }
+</script>
+
+<?php include_once 'footer.php'; ?>
