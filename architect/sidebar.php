@@ -29,6 +29,12 @@
                 <div data-i18n="Properties">Properties</div>
             </a>
         </li>
+        <li class="menu-item <?= $page == "projects" ? "active" : "" ?>">
+            <a href="view_projects" class="menu-link">
+                <i class="menu-icon bx bx-building-house"></i>
+                <div class="MySide" data-i18n="Projects">Projects</div>
+            </a>
+        </li>
    
         
         
@@ -52,6 +58,12 @@
         <!--        <div data-i18n="Invoices">Invoices</div>-->
         <!--    </a>-->
         <!--</li>-->
+        <li class="menu-item <?= $page == "projects" ? "active" : "" ?>">
+            <a href="my-projects" class="menu-link ">
+                <i class="menu-icon bx bx-user"></i>
+                <div data-i18n="My Projects">My Projects</div>
+            </a>
+        </li>
         
         <li class="menu-item <?= $page == "profile" ? "active" : "" ?>">
             <a href="profile" class="menu-link ">

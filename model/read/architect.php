@@ -22,6 +22,20 @@ function get_architect_profile()
 
     return select_rows($sql);
 }
+function get_by_field($table, $field, $value) {
+    $sql = "SELECT * FROM $table WHERE $field = '$value' LIMIT 1";
+    return select_rows($sql)[0]; 
+}
+function get_all_where($table, $conditions = []) {
+    $whereClause = [];
+    foreach ($conditions as $field => $value) {
+        $whereClause[] = "$field = '$value'";
+    }
+    $whereString = implode(" AND ", $whereClause);
+
+    $sql = "SELECT * FROM $table WHERE $whereString";
+    return select_rows($sql); // Assuming select_rows() executes the query and returns an array
+}
 
 function get_architect_login()
 {
@@ -52,6 +66,7 @@ function get_architect_login()
         'architect_email'       => $email,
         'architect_name'        => $login['architect_name'],
         'architect_id'          => $login['architect_id'],
+        'architect_role'        => $login['role'],
         'success'               => array('login' => 204)
     );
     // var_dump(architects_url);

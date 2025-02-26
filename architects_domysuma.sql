@@ -2,10 +2,10 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Sep 15, 2024 at 09:16 AM
--- Server version: 8.0.39
--- PHP Version: 8.3.10
+-- Host: 127.0.0.1
+-- Generation Time: Feb 26, 2025 at 08:14 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `rentpesa_rent`
+-- Database: `architects_domysuma`
 --
 
 -- --------------------------------------------------------
@@ -32,17 +32,17 @@ CREATE TABLE `admin` (
   `admin_name` varchar(255) NOT NULL,
   `admin_email` varchar(255) NOT NULL,
   `admin_password` varchar(255) NOT NULL,
-  `admin_privileges` text,
+  `admin_privileges` text DEFAULT NULL,
   `admin_image` varchar(255) DEFAULT NULL,
-  `admin_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `admin_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `admin`
 --
 
 INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_email`, `admin_password`, `admin_privileges`, `admin_image`, `admin_date_created`) VALUES
-('ADM20230228JNo0abc', 'RentPesa', 'admin@gmail.com', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', 'super', NULL, '2023-03-13 11:18:42'),
+('ADM20230228JNo0abc', 'RentPesa', 'admin@gmail.com', '$2y$11$P8GIHyal2r3wD1repDxJYeG9tWGi9qKUD9ldpK8/W1t4ZhHBR3Nr.', 'super', NULL, '2023-03-13 11:18:42'),
 ('ADM20230228JNo0It8', 'Armstrong', 'nicolarealtykenya@gmail.com', '$2y$11$GUshwsFvjwx5/gxuvXbxoO9I.hqaY.SDNe5qKc3JgagFWp95VLnby', 'super', NULL, '2023-02-28 16:25:54'),
 ('ADM20230228PBHVahz', 'Sharon Darizo', 'darizosharon@gmail.com', '$2y$11$YSDvhnM1clvdxYeUSQao8ek2hYPWr3H7YwgCL47ffR3NUiAn0BOlK', 'standard', NULL, '2023-02-28 17:32:49'),
 ('ADM20230228pF82tPA', 'Vincent', 'vincentokwaro79@gmail.com', '$2y$11$FRkKiTK7xcKUj5kkS2o8HegmRVJcVpdUY5ULUofu7XnGzdonOZd3q', 'standard', NULL, '2023-02-28 16:31:58'),
@@ -57,8 +57,8 @@ INSERT INTO `admin` (`admin_id`, `admin_name`, `admin_email`, `admin_password`, 
 CREATE TABLE `amenities` (
   `amenities_id` varchar(111) NOT NULL,
   `amenities_name` text NOT NULL,
-  `amenities_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `amenities_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `amenities`
@@ -87,18 +87,51 @@ INSERT INTO `amenities` (`amenities_id`, `amenities_name`, `amenities_date_creat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `architect`
+--
+
+CREATE TABLE `architect` (
+  `architect_id` varchar(255) NOT NULL,
+  `architect_name` varchar(255) NOT NULL,
+  `architect_email` varchar(255) NOT NULL,
+  `architect_phone` varchar(255) DEFAULT NULL,
+  `architect_password` varchar(255) NOT NULL,
+  `architect_dob` date DEFAULT NULL,
+  `property_id` text DEFAULT NULL,
+  `architect_image` varchar(255) DEFAULT NULL,
+  `architect_passport` varchar(255) DEFAULT NULL,
+  `architect_kra` varchar(255) DEFAULT NULL,
+  `kin_name` varchar(255) DEFAULT NULL,
+  `kin_phone` varchar(255) DEFAULT NULL,
+  `architect_status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `role` enum('senior','junior','','') NOT NULL,
+  `architect_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `architect`
+--
+
+INSERT INTO `architect` (`architect_id`, `architect_name`, `architect_email`, `architect_phone`, `architect_password`, `architect_dob`, `property_id`, `architect_image`, `architect_passport`, `architect_kra`, `kin_name`, `kin_phone`, `architect_status`, `role`, `architect_date_created`) VALUES
+('6V1DAjT', 'meshack', 'meshackyegon10@gmail.com', '254722617737', '$2y$11$P8GIHyal2r3wD1repDxJYeG9tWGi9qKUD9ldpK8/W1t4ZhHBR3Nr.', '2001-09-12', NULL, NULL, '38586125', 'A123456789', 'Mercy Lerionka', '254722805979', 'active', 'senior', '2025-02-22 12:57:56'),
+('ARC202502240FgpZPo', 'Arden Teddy', 'meshackyegon109@gmail.com', '0722617737', '$2y$11$cGgx6jfKLUvCC0fYL9k45uSfwXS3equ1rLJYE1nY6/TmPmZ9UWMU6', NULL, NULL, NULL, '38586125', 'A123456789', 'Faith Lerionka', '254724218863', 'active', 'senior', '2025-02-24 14:07:53'),
+('ARC20250224K6DILUQ', 'Mecy', 'meshackyegon1109@gmail.com', '0724140347', '$2y$11$RLMhVCpbPgG7zddS98iWZe64iUO3dMO/5BNJJWoC/peL6LRUEX8Tu', NULL, NULL, NULL, '20192019', 'A123456789', 'Emmanuel', '0725025667', 'active', 'junior', '2025-02-24 14:24:42');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `banner`
 --
 
 CREATE TABLE `banner` (
   `banner_id` varchar(255) NOT NULL,
   `banner_title` varchar(255) NOT NULL,
-  `banner_description` text,
+  `banner_description` text DEFAULT NULL,
   `banner_poster` text NOT NULL,
   `property_id` varchar(100) DEFAULT NULL,
-  `banner_url` text,
-  `banner_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `banner_url` text DEFAULT NULL,
+  `banner_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `banner`
@@ -117,8 +150,8 @@ INSERT INTO `banner` (`banner_id`, `banner_title`, `banner_description`, `banner
 CREATE TABLE `bedroom` (
   `bedroom_id` varchar(255) NOT NULL,
   `bedroom_name` varchar(255) NOT NULL,
-  `bedroom_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `bedroom_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `bedroom`
@@ -144,14 +177,14 @@ CREATE TABLE `booking` (
   `booking_id` varchar(255) NOT NULL,
   `user_id` varchar(255) NOT NULL,
   `property_id` varchar(255) NOT NULL,
-  `property_unit_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `preferred_date` int DEFAULT NULL,
+  `property_unit_id` varchar(255) DEFAULT NULL,
+  `preferred_date` int(11) DEFAULT NULL,
   `starting_from` date DEFAULT NULL,
   `booking_check_in` date NOT NULL,
   `booking_check_out` date DEFAULT NULL,
-  `booking_payment` enum('paid','unpaid') CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL DEFAULT 'paid',
-  `booking_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `booking_payment` enum('paid','unpaid') NOT NULL DEFAULT 'paid',
+  `booking_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `booking`
@@ -371,6 +404,41 @@ INSERT INTO `booking` (`booking_id`, `user_id`, `property_id`, `property_unit_id
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `bookings`
+--
+
+CREATE TABLE `bookings` (
+  `booking_id` int(11) NOT NULL,
+  `user_name` varchar(255) NOT NULL,
+  `user_email` varchar(255) NOT NULL,
+  `user_phone` varchar(255) NOT NULL,
+  `amount` float(10,2) NOT NULL,
+  `payment_status` varchar(255) NOT NULL DEFAULT 'not_paid',
+  `reference` varchar(255) NOT NULL,
+  `redirect_url` varchar(255) NOT NULL,
+  `booking_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `bookings`
+--
+
+INSERT INTO `bookings` (`booking_id`, `user_name`, `user_email`, `user_phone`, `amount`, `payment_status`, `reference`, `redirect_url`, `booking_date_created`) VALUES
+(249, 'Patrick', 'pmanyara97@gmail.com', '0745858891', 500.00, 'not_paid', '37d542c327c4', '', '2024-09-15 16:24:58');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `book_visit`
+--
+
+CREATE TABLE `book_visit` (
+  `book_visit_id` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `callback`
 --
 
@@ -380,8 +448,8 @@ CREATE TABLE `callback` (
   `property_id` varchar(255) DEFAULT NULL,
   `client_id` varchar(255) NOT NULL,
   `callback_called` enum('yes','no') NOT NULL DEFAULT 'no',
-  `callback_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `callback_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -392,18 +460,18 @@ CREATE TABLE `callback` (
 CREATE TABLE `check_in_image` (
   `check_in_image_id` varchar(255) NOT NULL,
   `rentee_id` varchar(255) NOT NULL,
-  `check_in_image_1` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `check_in_image_2` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `check_in_image_3` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `check_in_image_4` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `check_in_image_5` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `check_in_image_6` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `check_in_image_7` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `check_in_image_8` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `check_in_image_9` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `check_in_image_10` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `check_in_image_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `check_in_image_1` varchar(255) DEFAULT NULL,
+  `check_in_image_2` varchar(255) DEFAULT NULL,
+  `check_in_image_3` varchar(255) DEFAULT NULL,
+  `check_in_image_4` varchar(255) DEFAULT NULL,
+  `check_in_image_5` varchar(255) DEFAULT NULL,
+  `check_in_image_6` varchar(255) DEFAULT NULL,
+  `check_in_image_7` varchar(255) DEFAULT NULL,
+  `check_in_image_8` varchar(255) DEFAULT NULL,
+  `check_in_image_9` varchar(255) DEFAULT NULL,
+  `check_in_image_10` varchar(255) DEFAULT NULL,
+  `check_in_image_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -412,9 +480,40 @@ CREATE TABLE `check_in_image` (
 --
 
 CREATE TABLE `currency` (
-  `currency_id` int NOT NULL,
-  `currency_symbol` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL
+  `currency_id` int(11) NOT NULL,
+  `currency_symbol` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `electrical`
+--
+
+CREATE TABLE `electrical` (
+  `electrical_id` varchar(255) NOT NULL,
+  `electrical_name` varchar(255) NOT NULL,
+  `electrical_email` varchar(255) NOT NULL,
+  `electrical_phone` varchar(255) DEFAULT NULL,
+  `electrical_password` varchar(255) NOT NULL,
+  `electrical_dob` date DEFAULT NULL,
+  `property_id` text DEFAULT NULL,
+  `electrical_image` varchar(255) DEFAULT NULL,
+  `electrical_passport` varchar(255) DEFAULT NULL,
+  `electrical_kra` varchar(255) DEFAULT NULL,
+  `kin_name` varchar(255) DEFAULT NULL,
+  `kin_phone` varchar(255) DEFAULT NULL,
+  `electrical_status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `role` enum('senior','junior','','') NOT NULL,
+  `electrical_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `electrical`
+--
+
+INSERT INTO `electrical` (`electrical_id`, `electrical_name`, `electrical_email`, `electrical_phone`, `electrical_password`, `electrical_dob`, `property_id`, `electrical_image`, `electrical_passport`, `electrical_kra`, `kin_name`, `kin_phone`, `electrical_status`, `role`, `electrical_date_created`) VALUES
+('bGiDZWI', 'meshack', 'meshackyegon09@gmail.com', '254722617737', '$2y$11$2qTrRwBV5Wo8H2sJCHaZquglY6zKg30jmGPxB/MNB3pftCNBI5cIG', '2000-09-12', NULL, 'HealthImage20250222at050206pm947km02j.png', '2345678909', 'A123456789b', 'Mercy Lerionka', '254724218863', 'inactive', 'senior', '2025-02-22 15:08:49');
 
 -- --------------------------------------------------------
 
@@ -424,14 +523,14 @@ CREATE TABLE `currency` (
 
 CREATE TABLE `expense` (
   `expense_id` varchar(255) NOT NULL,
-  `expense_category_id` int NOT NULL,
+  `expense_category_id` int(11) NOT NULL,
   `expense_name` varchar(255) NOT NULL,
   `expense_note` varchar(255) DEFAULT NULL,
   `expense_amount` varchar(255) NOT NULL,
   `expense_date` varchar(255) NOT NULL,
   `expense_time` varchar(255) NOT NULL,
-  `expense_date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `expense_date_created` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `expense`
@@ -449,8 +548,8 @@ INSERT INTO `expense` (`expense_id`, `expense_category_id`, `expense_name`, `exp
 CREATE TABLE `expense_category` (
   `expense_category_id` varchar(255) NOT NULL,
   `expense_category_name` varchar(255) NOT NULL,
-  `expense_category_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+  `expense_category_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `expense_category`
@@ -469,8 +568,8 @@ INSERT INTO `expense_category` (`expense_category_id`, `expense_category_name`, 
 CREATE TABLE `featured_property` (
   `featured_property_id` varchar(255) NOT NULL,
   `property_id` varchar(255) NOT NULL,
-  `featured_property_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `featured_property_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `featured_property`
@@ -491,8 +590,8 @@ CREATE TABLE `features` (
   `features_id` varchar(255) NOT NULL,
   `property_id` varchar(255) NOT NULL,
   `amenities_id` varchar(255) NOT NULL,
-  `features_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `features_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `features`
@@ -573,8 +672,8 @@ CREATE TABLE `guard` (
   `guard_phone` varchar(255) NOT NULL,
   `guard_nid` varchar(255) NOT NULL,
   `property_id` varchar(255) DEFAULT NULL,
-  `guard_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `guard_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -588,8 +687,8 @@ CREATE TABLE `inquiry` (
   `inquiry_email` varchar(255) NOT NULL,
   `inquiry_phone` varchar(255) DEFAULT NULL,
   `inquiry_message` text NOT NULL,
-  `inquiry_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `inquiry_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `inquiry`
@@ -611,10 +710,10 @@ CREATE TABLE `invoice` (
   `invoice_id` varchar(255) NOT NULL,
   `property_id` varchar(255) DEFAULT NULL,
   `employee_id` varchar(255) DEFAULT NULL,
-  `invoice_total_price` int NOT NULL,
+  `invoice_total_price` int(11) NOT NULL,
   `invoice_key` varchar(255) NOT NULL,
-  `invoice_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `invoice_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -626,11 +725,11 @@ CREATE TABLE `invoice_item` (
   `invoice_item_id` varchar(255) NOT NULL,
   `invoice_id` varchar(255) NOT NULL,
   `invoice_item_name` varchar(255) NOT NULL,
-  `invoice_item_description` text,
-  `invoice_item_quantity` int DEFAULT NULL,
-  `invoice_item_price` int NOT NULL,
-  `invoice_item_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `invoice_item_description` text DEFAULT NULL,
+  `invoice_item_quantity` int(11) DEFAULT NULL,
+  `invoice_item_price` int(11) NOT NULL,
+  `invoice_item_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -639,37 +738,69 @@ CREATE TABLE `invoice_item` (
 --
 
 CREATE TABLE `landlord` (
-  `landlord_id` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `landlord_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `landlord_email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `landlord_id` varchar(255) NOT NULL,
+  `landlord_name` varchar(255) NOT NULL,
+  `landlord_email` varchar(255) NOT NULL,
   `landlord_phone` varchar(255) DEFAULT NULL,
-  `landlord_password` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `property_id` text CHARACTER SET latin1 COLLATE latin1_swedish_ci,
+  `landlord_password` varchar(255) NOT NULL,
+  `property_id` text DEFAULT NULL,
   `landlord_image` varchar(255) DEFAULT NULL,
   `landlord_passport` varchar(255) DEFAULT NULL,
   `landlord_kra` varchar(255) DEFAULT NULL,
   `kin_name` varchar(255) DEFAULT NULL,
   `kin_phone` varchar(255) DEFAULT NULL,
-  `bank_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT 'KCB',
-  `bank_account` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT 'KCB',
-  `bank_amount` float(10,2) DEFAULT '10.00',
-  `bank_date` int DEFAULT '6',
+  `bank_name` varchar(255) DEFAULT 'KCB',
+  `bank_account` varchar(255) DEFAULT 'KCB',
+  `bank_amount` float(10,2) DEFAULT 10.00,
+  `bank_date` int(11) DEFAULT 6,
   `landlord_commission` float(10,2) DEFAULT NULL,
   `landlord_status` enum('active','inactive') NOT NULL DEFAULT 'active',
-  `landlord_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `landlord_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `landlord`
 --
 
 INSERT INTO `landlord` (`landlord_id`, `landlord_name`, `landlord_email`, `landlord_phone`, `landlord_password`, `property_id`, `landlord_image`, `landlord_passport`, `landlord_kra`, `kin_name`, `kin_phone`, `bank_name`, `bank_account`, `bank_amount`, `bank_date`, `landlord_commission`, `landlord_status`, `landlord_date_created`) VALUES
-('c9k4pld', 'Test', 'debzziiie@gmail.com', '0112964216', '$2y$11$dR2W9nZZNMopmnd.5ygnL.rKSdTy2X0RduxJPEoCZRv2of2IHxebe', 'APP20240515UyTZeni', NULL, '23456789', 'sedft123', 'test', '079047900', 'ABSA', '12345', 30000.00, 5, 40.00, 'active', '2024-05-15 11:07:02'),
-('hZCklWu', 'Esther Ngoni', 'fahanngoni@gmail.com', '0791946468', '$2y$11$36/n4PI.cb1ys17dDNEaLOCB3byslgfwJu7FXNp.o03IRIkHadNee', 'APP20240504TnEX3sj', 'PsychImage20240513at070126pmfec5qs9g.jpg', '234', '1234567', 'Winnie Kandie', '07123454545', 'KCB', 'A1A1', 3000.00, 6, 10.00, 'active', '2024-05-09 16:22:41'),
+('c9k4pld', 'Test', 'debzziiie@gmail.com', '0112964216', '$2y$11$dR2W9nZZNMopmnd.5ygnL.rKSdTy2X0RduxJPEoCZRv2of2IHxebe', 'APP20240515UyTZeni', NULL, '23456789', 'sedft123', 'test', '079047900', 'ABSA', '12345', 30000.00, 5, 40.00, 'inactive', '2024-05-15 11:07:02'),
+('hZCklWu', 'Esther Ngoni', 'fahanngoni@gmail.com', '0791946468', '$2y$11$36/n4PI.cb1ys17dDNEaLOCB3byslgfwJu7FXNp.o03IRIkHadNee', 'APP20240504TnEX3sj', 'PsychImage20240513at070126pmfec5qs9g.jpg', '234', '1234567', 'Winnie Kandie', '07123454545', 'KCB', 'A1A1', 3000.00, 6, 10.00, 'inactive', '2024-05-09 16:22:41'),
 ('L1A0dko', 'Michael Selunani', 'michael1998march@gmail.com', '123568', '$2y$11$dK7oUS6n/fETa9IPyxi1NeuSlSBf09GLgkFFWOdvKUj84oGAi2mb.', 'APP202405068PM1kDu', NULL, '234432', 'A011234567', 'Winnie Kandie', '07123454545', 'KCB', 'A1A1', 50000.00, 4, NULL, 'active', '2024-05-08 12:11:58'),
 ('LAN20230228JNo0abc', 'Edwin Khiranga', 'edwin@test.com', '0123456789', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', 'APP20240503h7o1wxG,APP20240504ZA2RxM3', '1694663932638.jpg', '23456789', 'A024324324', 'Peter Ndungu', '07123454545', 'ABSA', '454RDGA', 30000.00, 16, NULL, 'active', '2023-03-13 11:18:42'),
 ('LAN20240805n27apFh', 'Edwin Mwendi', 'nmwendi@gmail.com', '0720647557', '$2y$11$OEaE7QpbLFXTpW3QGITTluv5MeBRwhVld6OGzcvs353CV9vorJXNu', NULL, NULL, '228545419', 'a003151280b', 'Mwe', '0720647557', 'KCB', '12345678912', 10000.00, 5, 70.00, 'inactive', '2024-08-05 15:22:41'),
+('LAN20250219hMGHPla', 'Meshack Landlord', 'meshackyegon10@gmail.com', '0722617737', '$2y$11$EXEDjeU5VdSNqmVwPzUQXeWqV9hms244yqcrO6ozwDwqlvuCIsbvK', NULL, NULL, '38586125', 'A012768146B', 'Mercy', '0722805979', 'Equity', '0280196256747', 20000.00, 5, 12.00, 'active', '2025-02-19 10:50:45'),
 ('Rxgq2Fl', 'Project Pat', 'pmanyara97@gmail.com', '0745858891', '$2y$11$8ZEmYoV8TN3FO9uAYXg0TuvOut.ih2c1PXSHiuHOFEtsHYG1LFS0e', 'APP20240506hExZ3OM', NULL, '1234', '1234', 'Dan', '0745858891', 'ABSA', 'ABSA', 10000.00, 2, 12.00, 'active', '2024-05-26 19:11:54');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `mechanical`
+--
+
+CREATE TABLE `mechanical` (
+  `mechanical_id` varchar(255) NOT NULL,
+  `mechanical_name` varchar(255) NOT NULL,
+  `mechanical_email` varchar(255) NOT NULL,
+  `mechanical_phone` varchar(255) DEFAULT NULL,
+  `mechanical_password` varchar(255) NOT NULL,
+  `mechanical_dob` date DEFAULT NULL,
+  `property_id` text DEFAULT NULL,
+  `mechanical_image` varchar(255) DEFAULT NULL,
+  `mechanical_passport` varchar(255) DEFAULT NULL,
+  `mechanical_kra` varchar(255) DEFAULT NULL,
+  `kin_name` varchar(255) DEFAULT NULL,
+  `kin_phone` varchar(255) DEFAULT NULL,
+  `mechanical_status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `role` enum('junior','senior','','') NOT NULL,
+  `mechanical_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `mechanical`
+--
+
+INSERT INTO `mechanical` (`mechanical_id`, `mechanical_name`, `mechanical_email`, `mechanical_phone`, `mechanical_password`, `mechanical_dob`, `property_id`, `mechanical_image`, `mechanical_passport`, `mechanical_kra`, `kin_name`, `kin_phone`, `mechanical_status`, `role`, `mechanical_date_created`) VALUES
+('NiForpQ', 'Meshack', 'meshackyegon09@gmail.com', '254722617737', '$2y$11$4JV49Jmf5izemhOKeyXUret0oDzH5KhMxvbN0LR38sMkV48ACKbaS', '2000-09-13', NULL, 'MentalImage20250222at085340pmbjdz4u6a.jpg', '234567898', 'A0987654321b', 'Mercy Lerionka', '254724218863', 'active', 'junior', '2025-02-22 15:11:19');
 
 -- --------------------------------------------------------
 
@@ -678,14 +809,14 @@ INSERT INTO `landlord` (`landlord_id`, `landlord_name`, `landlord_email`, `landl
 --
 
 CREATE TABLE `metadata` (
-  `metadata_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `metadata_table` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `metadata_action` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `metadata_key` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `metadata_id` varchar(255) NOT NULL,
+  `metadata_table` varchar(255) NOT NULL,
+  `metadata_action` varchar(255) NOT NULL,
+  `metadata_key` varchar(255) NOT NULL,
   `metadata_role` varchar(255) NOT NULL,
   `metadata_user` varchar(255) NOT NULL,
-  `metadata_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `metadata_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `metadata`
@@ -696,6 +827,9 @@ INSERT INTO `metadata` (`metadata_id`, `metadata_table`, `metadata_action`, `met
 ('META20240526vWB6Nok', 'property', 'Activate Landlord', 'APP20240504TnEX3sj', 'Admin', 'ADM20230228JNo0abc', '2024-05-26 20:26:11'),
 ('META20240527fOA3czv', 'Booking', 'Admit Tenant', 'FZXCSHj', 'Landlord', 'Rxgq2Fl', '2024-05-27 00:34:32'),
 ('META20240527MfRAjQW', 'Booking', 'Admit Tenant', 'FZXCSHj', 'Landlord', 'Rxgq2Fl', '2024-05-27 00:29:57'),
+('META202502226JGSglZ', 'mechanical', 'Activate Landlord', 'NiForpQ', 'Admin', 'ADM20230228JNo0abc', '2025-02-22 23:11:50'),
+('META20250222c5QWVzs', 'mechanical', 'Activate Landlord', 'NiForpQ', 'Admin', 'ADM20230228JNo0abc', '2025-02-22 23:11:55'),
+('META20250222CmwdZNa', 'mechanical', 'Activate Landlord', 'NiForpQ', 'Admin', 'ADM20230228JNo0abc', '2025-02-22 23:11:43'),
 ('yNkBepJ', 'landlord', 'Activate Landlord', 'Rxgq2Fl', 'Admin', 'ADM20230228JNo0abc', '2024-05-26 19:49:39');
 
 -- --------------------------------------------------------
@@ -711,8 +845,8 @@ CREATE TABLE `password_reset` (
   `password_reset_validator` text NOT NULL,
   `password_reset_token` longtext NOT NULL,
   `password_reset_expires` text NOT NULL,
-  `password_reset_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `password_reset_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -724,8 +858,15 @@ CREATE TABLE `password_token` (
   `password_token_id` varchar(255) NOT NULL,
   `password_token` varchar(255) NOT NULL,
   `user_key` varchar(255) NOT NULL,
-  `password_token_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `password_token_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `password_token`
+--
+
+INSERT INTO `password_token` (`password_token_id`, `password_token`, `user_key`, `password_token_date_created`) VALUES
+('8ivZEeo', '9C438W4Y', 'USR20250222I123x4O', '2025-02-22 23:23:08');
 
 -- --------------------------------------------------------
 
@@ -740,8 +881,8 @@ CREATE TABLE `payment` (
   `property_unit_id` varchar(255) DEFAULT NULL,
   `payment_paid` enum('paid','unpaid') NOT NULL DEFAULT 'paid',
   `payment_amount` float(10,2) DEFAULT NULL,
-  `payment_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `payment_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `payment`
@@ -964,42 +1105,136 @@ INSERT INTO `payment` (`payment_id`, `user_id`, `property_id`, `property_unit_id
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `payments`
+--
+
+CREATE TABLE `payments` (
+  `id` int(11) NOT NULL,
+  `payment_id` varchar(50) NOT NULL,
+  `project_id` varchar(100) NOT NULL,
+  `visit_date` date NOT NULL,
+  `created_by` varchar(50) NOT NULL,
+  `user_id` varchar(50) NOT NULL,
+  `user_email` varchar(100) NOT NULL,
+  `user_phone` varchar(15) NOT NULL,
+  `payment_reason` varchar(100) NOT NULL,
+  `amount` decimal(10,2) NOT NULL,
+  `merchantRequestID` varchar(100) NOT NULL,
+  `checkoutRequestID` varchar(100) NOT NULL,
+  `customerMessage` text NOT NULL,
+  `status` varchar(100) NOT NULL DEFAULT 'pending',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `payment_status` varchar(20) DEFAULT 'Pending',
+  `mpesa_receipt_number` varchar(50) DEFAULT NULL,
+  `transaction_date` datetime DEFAULT NULL,
+  `phone_number` varchar(15) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`id`, `payment_id`, `project_id`, `visit_date`, `created_by`, `user_id`, `user_email`, `user_phone`, `payment_reason`, `amount`, `merchantRequestID`, `checkoutRequestID`, `customerMessage`, `status`, `created_at`, `payment_status`, `mpesa_receipt_number`, `transaction_date`, `phone_number`) VALUES
+(3, 'PAY20250226o5zX3ep', 'IGM23gE', '2025-02-28', 'self', 'USR20250222nVscMZI', 'meshackyegon@gmail.com', '254722617737', 'Book Visit', 10000.00, '5fe8-4261-87f6-6d7d41adc6c31163134', 'ws_CO_26022025152041226722617737', 'Success. Request accepted for processing', 'pending', '2025-02-26 12:19:21', 'Pending', NULL, NULL, NULL),
+(4, 'PAY20250226xaTodCh', 'IGM23gE', '2025-02-28', 'self', 'USR20250222nVscMZI', 'meshackyegon@gmail.com', '254722617737', 'Book Visit', 10000.00, '6543-425e-a177-2e84b1462ecd1582764', 'ws_CO_26022025212906574722617737', 'Success. Request accepted for processing', 'pending', '2025-02-26 18:29:09', 'Pending', NULL, NULL, NULL),
+(5, 'PAY20250226kow5DPi', 'IGM23gE', '2025-02-28', 'self', 'USR20250222nVscMZI', 'meshackyegon@gmail.com', '254722617737', 'Book Visit', 1.00, '5fe8-4261-87f6-6d7d41adc6c31172101', 'ws_CO_26022025214419389722617737', 'Success. Request accepted for processing', 'pending', '2025-02-26 18:44:22', 'Pending', NULL, NULL, NULL),
+(6, 'PAY20250226E3YXTq2', 'IGM23gE', '2025-02-28', 'self', 'USR20250222nVscMZI', 'meshackyegon@gmail.com', '254722617737', 'Book Visit', 1.00, '5fe8-4261-87f6-6d7d41adc6c31172131', 'ws_CO_26022025214807755722617737', 'Success. Request accepted for processing', 'pending', '2025-02-26 18:46:47', 'Pending', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project`
+--
+
+CREATE TABLE `project` (
+  `project_id` varchar(100) NOT NULL,
+  `user_id` varchar(100) NOT NULL,
+  `project_name` varchar(100) NOT NULL,
+  `project_type` varchar(100) NOT NULL,
+  `county` varchar(100) NOT NULL,
+  `subcounty` varchar(100) NOT NULL,
+  `ward` varchar(100) NOT NULL,
+  `nearest_town` varchar(100) NOT NULL,
+  `location_pin` varchar(100) NOT NULL,
+  `land_size` varchar(100) NOT NULL,
+  `created_by` varchar(100) NOT NULL,
+  `project_date_created` datetime NOT NULL,
+  `bungalow_features` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `project`
+--
+
+INSERT INTO `project` (`project_id`, `user_id`, `project_name`, `project_type`, `county`, `subcounty`, `ward`, `nearest_town`, `location_pin`, `land_size`, `created_by`, `project_date_created`, `bungalow_features`) VALUES
+('IGM23gE', 'USR20250222nVscMZI', 'karen Plaza', 'Townhouses', 'nairobi', 'Londiani', 'Chepseon', 'kitisuru', '23456789', '50m2', 'self', '0000-00-00 00:00:00', NULL),
+('PPJ20250224u4Y0EjO', 'USR20250222nVscMZI', 'Turbo Tales Plaza', 'Bungalows', 'Nairobi', 'Langata', 'Karen', 'Bomas', '23456789o', '70m2', 'self', '0000-00-00 00:00:00', NULL),
+('PPJ20250225a9ubfR2', 'USR20250222nVscMZI', 'Lautop Plaza', 'Maisonettes', 'Kericho', 'Londiani', 'Chepseon', 'Kericho', '23456789', '100', 'self', '0000-00-00 00:00:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `project_assignment`
+--
+
+CREATE TABLE `project_assignment` (
+  `assign_id` varchar(255) NOT NULL,
+  `project_id` varchar(255) NOT NULL,
+  `senior_architect_id` varchar(255) NOT NULL,
+  `junior_architect_id` varchar(255) DEFAULT NULL,
+  `status` enum('Pending','In Progress','Completed') DEFAULT 'Pending',
+  `approval_status` enum('Pending','Approved','Declined') DEFAULT 'Pending',
+  `completion_status` enum('Not Started','In Progress','Completed') DEFAULT 'Not Started',
+  `assigned_on` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `project_assignment`
+--
+
+INSERT INTO `project_assignment` (`assign_id`, `project_id`, `senior_architect_id`, `junior_architect_id`, `status`, `approval_status`, `completion_status`, `assigned_on`) VALUES
+('APA202502242pgJbXD', 'IGM23gE', '6V1DAjT', 'ARC20250224K6DILUQ', 'Pending', 'Pending', 'Not Started', '2025-02-24 23:44:21'),
+('APA20250225T5tb1Me', 'PPJ20250224u4Y0EjO', 'ARC202502240FgpZPo', 'ARC20250224K6DILUQ', 'Pending', 'Pending', 'Not Started', '2025-02-25 13:03:31');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `property`
 --
 
 CREATE TABLE `property` (
   `property_id` varchar(30) NOT NULL,
   `property_name` text NOT NULL,
-  `property_type` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `property_units` int DEFAULT NULL,
-  `property_location` text,
-  `property_price` int NOT NULL,
+  `property_type` varchar(255) NOT NULL,
+  `property_units` int(11) DEFAULT NULL,
+  `property_location` text DEFAULT NULL,
+  `property_price` int(11) NOT NULL,
   `one_bedroom` float(10,2) DEFAULT NULL,
   `two_bedroom` float(10,2) DEFAULT NULL,
   `bedsitter` float(10,2) DEFAULT NULL,
   `ground_floor` float(10,2) DEFAULT NULL,
   `due` date DEFAULT NULL,
-  `property_price_details` text,
+  `property_price_details` text DEFAULT NULL,
   `property_description` text NOT NULL,
   `property_image` text NOT NULL,
   `property_image2` varchar(255) DEFAULT NULL,
   `property_city` varchar(100) NOT NULL,
-  `regulation_id` text CHARACTER SET latin1 COLLATE latin1_swedish_ci,
-  `property_map` text,
+  `regulation_id` text DEFAULT NULL,
+  `property_map` text DEFAULT NULL,
   `property_stay` varchar(255) DEFAULT NULL,
-  `property_vacant` int DEFAULT NULL,
-  `property_rooms` int DEFAULT NULL,
+  `property_vacant` int(11) DEFAULT NULL,
+  `property_rooms` int(11) DEFAULT NULL,
   `property_water` float(10,2) DEFAULT NULL,
   `property_garbage` float(10,2) DEFAULT NULL,
-  `property_bathrooms` text,
+  `property_bathrooms` text DEFAULT NULL,
   `property_bedrooms` varchar(255) DEFAULT NULL,
-  `property_policy` text,
-  `property_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `property_policy` text DEFAULT NULL,
+  `property_date_created` datetime NOT NULL DEFAULT current_timestamp(),
   `property_admin` varchar(255) DEFAULT NULL,
   `added_by` varchar(255) NOT NULL DEFAULT 'admin',
   `has_unit` enum('yes','no') NOT NULL DEFAULT 'yes',
   `property_status` enum('active','inactive') NOT NULL DEFAULT 'active'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `property`
@@ -1021,18 +1256,18 @@ INSERT INTO `property` (`property_id`, `property_name`, `property_type`, `proper
 CREATE TABLE `property_image` (
   `property_image_id` varchar(255) NOT NULL,
   `property_id` varchar(255) NOT NULL,
-  `property_image_1` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `property_image_2` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `property_image_3` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `property_image_4` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `property_image_5` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `property_image_6` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `property_image_7` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `property_image_8` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `property_image_9` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `property_image_10` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `property_image_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `property_image_1` varchar(255) DEFAULT NULL,
+  `property_image_2` varchar(255) DEFAULT NULL,
+  `property_image_3` varchar(255) DEFAULT NULL,
+  `property_image_4` varchar(255) DEFAULT NULL,
+  `property_image_5` varchar(255) DEFAULT NULL,
+  `property_image_6` varchar(255) DEFAULT NULL,
+  `property_image_7` varchar(255) DEFAULT NULL,
+  `property_image_8` varchar(255) DEFAULT NULL,
+  `property_image_9` varchar(255) DEFAULT NULL,
+  `property_image_10` varchar(255) DEFAULT NULL,
+  `property_image_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -1044,11 +1279,11 @@ CREATE TABLE `property_unit` (
   `property_unit_id` varchar(255) NOT NULL,
   `property_id` varchar(255) NOT NULL,
   `property_unit_name` varchar(255) NOT NULL,
-  `property_unit_description` text,
+  `property_unit_description` text DEFAULT NULL,
   `property_unit_price` float(10,2) NOT NULL,
   `property_unit_type` varchar(255) NOT NULL,
-  `property_unit_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `property_unit_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `property_unit`
@@ -1074,10 +1309,10 @@ INSERT INTO `property_unit` (`property_unit_id`, `property_id`, `property_unit_n
 --
 
 CREATE TABLE `regulation` (
-  `regulation_id` varchar(111) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `regulation_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `regulation_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `regulation_id` varchar(111) NOT NULL,
+  `regulation_name` varchar(255) NOT NULL,
+  `regulation_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `regulation`
@@ -1097,18 +1332,18 @@ INSERT INTO `regulation` (`regulation_id`, `regulation_name`, `regulation_date_c
 --
 
 CREATE TABLE `request` (
-  `request_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
+  `request_id` varchar(255) NOT NULL,
   `user_id` varchar(255) NOT NULL,
   `property_id` varchar(255) NOT NULL,
-  `property_unit_id` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `amount_figures` int NOT NULL,
-  `preferred_date` int DEFAULT NULL,
+  `property_unit_id` varchar(255) DEFAULT NULL,
+  `amount_figures` int(11) NOT NULL,
+  `preferred_date` int(11) DEFAULT NULL,
   `starting_from` date DEFAULT NULL,
   `end_date` date DEFAULT NULL,
   `request_check_in` date NOT NULL,
   `request_check_out` date DEFAULT NULL,
-  `request_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `request_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `request`
@@ -1140,23 +1375,82 @@ INSERT INTO `request` (`request_id`, `user_id`, `property_id`, `property_unit_id
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `service`
+--
+
+CREATE TABLE `service` (
+  `service_id` varchar(255) NOT NULL,
+  `service_name` varchar(255) NOT NULL,
+  `service_price` float(10,2) NOT NULL,
+  `service_category` varchar(255) NOT NULL,
+  `service_image` varchar(255) NOT NULL DEFAULT 'default.png',
+  `service_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `service`
+--
+
+INSERT INTO `service` (`service_id`, `service_name`, `service_price`, `service_category`, `service_image`, `service_date_created`) VALUES
+('SER202409151OEfZjT', 'Mani Kids', 1200.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:57:35'),
+('SER2024091524JnA8m', 'Manicure', 1500.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:54:48'),
+('SER202409152a', 'Basic Facial', 4500.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:41:59'),
+('SER202409152c', 'Hydrating Facial', 6500.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:42:59'),
+('SER202409152d', 'Brightening Facial', 6500.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:43:59'),
+('SER202409152g', 'Microdermabrasion', 7000.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:50:59'),
+('SER202409152h', 'Skin Analysis + Consultation', 2000.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:51:59'),
+('SER202409152i', 'LED', 1000.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:52:59'),
+('SER202409152YueMTx', 'Vajacial', 3500.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:40:59'),
+('SER202409153b', 'Hydrafacial', 9000.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:42:59'),
+('SER202409153e', 'Anti-Aging Facial', 8000.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:44:59'),
+('SER202409153f', 'Dermaplanning', 6000.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:47:59'),
+('SER202409153j', 'High Frequency', 1000.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:53:59'),
+('SER202409153k', 'Dermaplane', 8000.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:53:59'),
+('SER202409153XXXXX', 'Armcial', 3000.00, 'facial', 'TherapyImage20240915at034059pm3bipr14k.jpeg', '2024-09-15 15:39:59'),
+('SER2024091550TZH3E', 'Soak Off', 500.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:56:39'),
+('SER20240915546LSAm', 'Gum Gel Without Tips', 4500.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:53:57'),
+('SER202409157tlSgRF', 'Back Scrub', 3000.00, 'body scrub', 'PsychImage20240915at055957pmv13yejhs.jpeg', '2024-09-15 18:00:19'),
+('SER20240915HMsi3hU', 'Kids Pedicure', 1500.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:56:50'),
+('SER20240915LKEDmn7', 'Mani+Pedi Kids', 2500.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:57:12'),
+('SER20240915mvC27rS', 'Builder Gel With Tips', 3500.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:51:52'),
+('SER20240915oHinNOZ', 'Overlay', 4000.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:53:19'),
+('SER20240915OrltkZw', 'Full Body Moroccan Bath', 5500.00, 'body scrub', 'PsychImage20240915at055957pmv13yejhs.jpeg', '2024-09-15 17:59:57'),
+('SER20240915pfOq5DN', 'Normal Polish', 800.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:56:23'),
+('SER20240915Qj8ZJEc', 'Jelly Pedicure', 3500.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:55:24'),
+('SER20240915QtoXjYS', 'Gum Gel With Tips', 4000.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:53:39'),
+('SER20240915rwEk4yU', 'Paraffin Pedicure', 4000.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:56:05'),
+('SER20240915SYotCnu', 'body scrub', 5000.00, 'body scrub', 'PsychImage20240915at055957pmv13yejhs.jpeg', '2024-09-15 18:00:07'),
+('SER20240915vGQYKcH', 'Pedicure', 2500.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:54:58'),
+('SER20240915x11', 'Upper Lip (Face)', 500.00, 'waxing', 'MentalImage20240915at053426pmvtxuagy4.jpeg', '2024-09-15 17:03:26'),
+('SER20240915x21', 'Brows', 500.00, 'waxing', 'MentalImage20240915at053426pmvtxuagy4.jpeg', '2024-09-15 17:04:06'),
+('SER20240915x31', 'Half Legs', 2000.00, 'waxing', 'MentalImage20240915at053426pmvtxuagy4.jpeg', '2024-09-15 17:55:26'),
+('SER20240915x4', 'Full Body Wax', 15000.00, 'waxing', 'MentalImage20240915at053426pmvtxuagy4.jpeg', '2024-09-15 17:48:27'),
+('SER20240915x5', 'Full Arms', 2000.00, 'waxing', 'MentalImage20240915at053426pmvtxuagy4.jpeg', '2024-09-15 17:40:26'),
+('SER20240915x6', 'Chest', 1500.00, 'waxing', 'MentalImage20240915at053426pmvtxuagy4.jpeg', '2024-09-15 17:35:28'),
+('SER20240915x7', 'Back', 3000.00, 'waxing', 'MentalImage20240915at053426pmvtxuagy4.jpeg', '2024-09-15 17:01:26'),
+('SER20240915xt0R1Pw', 'Underarm', 1000.00, 'waxing', 'MentalImage20240915at053426pmvtxuagy4.jpeg', '2024-09-15 17:33:26'),
+('SER20240915zhwfFmX', 'Plain Gel', 1000.00, 'nails', 'TherapyImage20240915at055152pmojigkcnz.jpeg', '2024-09-15 17:54:32');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `standing_order`
 --
 
 CREATE TABLE `standing_order` (
-  `id` int NOT NULL,
+  `id` int(11) NOT NULL,
   `order_id` varchar(255) NOT NULL,
   `reference` varchar(255) NOT NULL,
-  `user_id` int DEFAULT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `amount` decimal(10,2) DEFAULT NULL,
   `status` varchar(50) NOT NULL,
   `transaction_id` varchar(255) DEFAULT NULL,
   `msisdn` varchar(20) DEFAULT NULL,
   `response_code` varchar(10) DEFAULT NULL,
-  `response_description` text,
-  `standing_order_date_created` datetime DEFAULT CURRENT_TIMESTAMP,
-  `standing_order_date_updated` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  `response_description` text DEFAULT NULL,
+  `standing_order_date_created` datetime DEFAULT current_timestamp(),
+  `standing_order_date_updated` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `standing_order`
@@ -1172,6 +1466,37 @@ INSERT INTO `standing_order` (`id`, `order_id`, `reference`, `user_id`, `amount`
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `structural`
+--
+
+CREATE TABLE `structural` (
+  `structural_id` varchar(255) NOT NULL,
+  `structural_name` varchar(255) NOT NULL,
+  `structural_email` varchar(255) NOT NULL,
+  `structural_phone` varchar(255) DEFAULT NULL,
+  `structural_password` varchar(255) NOT NULL,
+  `structural_dob` date DEFAULT NULL,
+  `property_id` text DEFAULT NULL,
+  `structural_image` varchar(255) DEFAULT NULL,
+  `structural_passport` varchar(255) DEFAULT NULL,
+  `structural_kra` varchar(255) DEFAULT NULL,
+  `kin_name` varchar(255) DEFAULT NULL,
+  `kin_phone` varchar(255) DEFAULT NULL,
+  `structural_status` enum('active','inactive') NOT NULL DEFAULT 'active',
+  `role` enum('senior','junior','','') NOT NULL,
+  `structural_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+
+--
+-- Dumping data for table `structural`
+--
+
+INSERT INTO `structural` (`structural_id`, `structural_name`, `structural_email`, `structural_phone`, `structural_password`, `structural_dob`, `property_id`, `structural_image`, `structural_passport`, `structural_kra`, `kin_name`, `kin_phone`, `structural_status`, `role`, `structural_date_created`) VALUES
+('cjQJEFq', 'Meshack Yegon', 'meshackyegon09@gmail.com', '254722617737', '$2y$11$2qTrRwBV5Wo8H2sJCHaZquglY6zKg30jmGPxB/MNB3pftCNBI5cIG', '2000-09-12', NULL, 'PsychImage20250222at043449pm0c6j7e8u.jpg', '1234567890', 'A123456789b', 'Mercy Lerionka', '254722805979', 'inactive', 'senior', '2025-02-22 15:15:32');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `user`
 --
 
@@ -1181,170 +1506,25 @@ CREATE TABLE `user` (
   `user_email` varchar(255) NOT NULL,
   `user_phone` varchar(255) DEFAULT NULL,
   `user_password` varchar(255) DEFAULT NULL,
-  `user_image` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT 'user.png',
+  `user_image` varchar(255) DEFAULT 'user.png',
   `user_passport` varchar(255) DEFAULT NULL,
   `user_dob` date DEFAULT NULL,
   `kin_name` varchar(255) DEFAULT NULL,
   `kin_phone` varchar(255) DEFAULT NULL,
   `added_by` varchar(255) DEFAULT NULL,
   `user_kra` varchar(255) DEFAULT NULL,
-  `preferred_date` int DEFAULT NULL,
-  `property_id` text,
-  `user_date_created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `preferred_date` int(11) DEFAULT NULL,
+  `property_id` text DEFAULT NULL,
+  `user_date_created` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
 
 --
 -- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`user_id`, `user_name`, `user_email`, `user_phone`, `user_password`, `user_image`, `user_passport`, `user_dob`, `kin_name`, `kin_phone`, `added_by`, `user_kra`, `preferred_date`, `property_id`, `user_date_created`) VALUES
-('0CGnJZv9zBA', 'Hakeem Rabuka Kiboi', 'kiboihakeem@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2023-03-15 12:24:06'),
-('0jog3yIUCGA', 'Michael Se-lunani', 'michael1998march2@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2023-04-18 09:16:34'),
-('0VK7FPymEhq', 'Freda Mutune', 'mawiafreda@gmail.com', '0714392052', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', 'imgh0b323101410401420230402amwdlu.png', '32059698', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2023-01-31 04:25:44'),
-('2g3sTCvQtmb', 'Fredrick', 'fredchege199@gmail.com', '0704692424', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '33563513', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-13 21:23:30'),
-('3YcCd0PFJSO', 'psychx Global', 'psychxglobal@gmail.com', '+254714392052', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', 'imgqty522022014092020224912pmlnkr.png', '', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2022-12-20 04:01:33'),
-('6ZO1cSDIKJj', 'Sarah', 'sarahitenya24@gmail.com', '0708320066', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '31798143', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-05-05 22:44:35'),
-('7LU6RO1pJ9h', 'James rano', 'mmmuathime@gmail.com', '0733935448', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '10001034', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-26 04:00:32'),
-('83TrzFSmJaA', 'Safe Space Arena', 'safespacearena@gmail.com', '0780059269', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '28249859', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-08 07:22:43'),
-('8lNcmigCHfn', 'John Ndungu', 'jndungu@jambopay.com', '254702670301', '$2y$11$0mXqFzg/e0X30viTvihZ4uZDWgKa1.LdUOKdCZHjlBZULijC3YWhe', 'PsychImage20240910at020727pmjkmgo2pd.png', '34132269', '1997-11-27', 'Peter Chege', '254713564851', 'self', 'A0345699122', NULL, 'APP20240504ZA2RxM3', '2022-12-07 09:20:06'),
-('a9O42nbtP8E', 'Letty', 'mtangeletty@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-12 03:39:53'),
-('aLdFUHYmISu', 'Mike', 'nicksonkipkorir75@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240503h7o1wxG', '2023-01-17 10:08:49'),
-('aSzGs7EvBxN', 'Christine', 'christine11111@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2022-12-23 12:34:00'),
-('bUioI457xvN', 'Victoria Mwema', 'vicmwema@gmail.com', '0703296082', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '29561128', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-10 02:00:11'),
-('cCvXYD5rFEI', 'Shameem mohammed', 'mohammedshamsa59@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-04 23:17:15'),
-('cDrLqA4pCdZ', 'Higgins Ongaya', 'okiyahyggyn@gmail.com', '703559915', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '32288102', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2022-12-30 02:38:39'),
-('cKQukE2aDdS', 'Patriciah Kamau', 'kamautrish12@gmail.com', '705484474', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, 'NA', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2023-05-09 18:44:23'),
-('cqbtO30oygT', 'Michael Se Lunani', 'selunani@vesencomputing.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240503h7o1wxG', '2023-01-06 09:08:26'),
-('dHovsmRuEGQ', 'John', 'vesendummy@gmail.com', '0702670301', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-02-16 11:14:29'),
-('dQqDMig8f7r', 'Marangu', 'marangu@psychx.io', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-04-25 15:24:36'),
-('eMn0YzbGv24', 'Dorcas Makena Nkonge', 'nkonge94@gmail.com', '0115840422', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '30981188', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-14 14:16:45'),
-('etdQOLJzsRl', 'Brian Omondi', 'brianomondi163@gmail.com', '0717960080', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', 'imgsdnw23101110411120234201amo1dc.jpg', '35327888', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-11 00:38:27'),
-('FBZdwEa9Gx1', 'Fiona Wekulo', 'fionawekulo@gmail.com', '254794802072', '$2y$11$Z3wbsSAbL3EGq/RhavORmOqCuLuBPbxIWN2FJ0Bcn1KB72sOXo/y2', 'user.png', '12345', '2013-01-28', 'Fifi', '254794802072', 'admin', '1234567', NULL, 'APP20240503h7o1wxG', '2024-02-18 07:59:17'),
-('FdaVCtQgAK5', 'Fify', 'fredafify@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-02-20 21:43:35'),
-('fJjhKoZwTic', 'Jennifer K', 'info.jenniferk@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-08 07:05:28'),
-('FpGi0KEPf8Y', 'Faith Arounga', 'faitharuonga@gmail.com', '0701126372', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '33272092', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-05-05 14:14:42'),
-('Fv6ED4Ao7TB', 'Charity', 'mumbi_charity@yahoo.co.uk', '721791969', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '22201623', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-09 00:21:52'),
-('GedFz6wxth9', 'John', 'info@vesencomputing.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240503h7o1wxG', '2022-12-24 01:13:20'),
-('GEemZI0AUsk', 'Alexander Kinyanjui', 'akinyanjui17@gmail.com', '+254731505747', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '29326512', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-10 09:13:46'),
-('GOrLWu90VKH', 'Philip Matunda', 'philipmatunda@gmail.com', '+254745450770', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '34201425', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-09 11:07:23'),
-('gRQ8tPqv7Vz', 'Amina Mzee Omar', 'amnelally@gmail.com', '0758 811 682', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '27393003', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-02-17 01:45:13'),
-('hwkAW2UIzGT', 'Philip Kyalo', 'mathekakyalo1@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-04-15 06:20:35'),
-('I9LrmsKnkiJ', 'mercy', 'mercytheuri.mt@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-13 10:27:35'),
-('iAFH139ek8q', 'Peninah Nyakiro', 'n.nyakiro@gmail.com', '0724653596', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '28619678', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-05-08 19:45:12'),
-('MBI9GsWZp6J', 'Gael', 'freda@psychx.io', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-04-29 09:36:21'),
-('mhxdHLoKy6v', 'LEWIS MUTUGI NYAGA', 'mutugilewis166@gmail.com', '0715237367', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '33252577', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-05 11:00:33'),
-('Mku81YgzwGs', 'Dun Ogendi', 'Ogendidun@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-08 22:41:54'),
-('n9SboIxagk0', 'Kabura', 'kaburanginya@gmail.com', '+254751388828', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '39577246', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-11 06:31:16'),
-('O4SzKMjwBGt', 'John Ndungu', 'ndungu.murimi@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-01 15:35:18'),
-('oJtHC1p48sF', 'Viola Onyango', 'viola.onyango@yahoo.com', '702742898', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '31312775', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-07 13:10:47'),
-('OsA5miKC0F9', 'Pat Imanarakoze', 'patjunhopat@gmail.com', '0123456', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', 'AngaImage20230608at125335pmg7fl36sk.jpg', '', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2023-02-13 06:40:56'),
-('OWQlEzTxFKh', 'Doreen', 'Vesen@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-16 03:39:52'),
-('PBTjQFG2e7O', 'FI', 'fifymawia@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-17 10:01:11'),
-('phaXncSgrdm', 'Mary Njoki', 'mary.njoki@jasirifellow.org', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2022-12-23 00:41:37'),
-('pwMWRj7eD3B', 'Emmanuel', 'manuelmatiro@gmail.com', '0722496748', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '299999999', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-04-26 00:01:37'),
-('q9cS2voZRNs', 'Juniors', 'rockhealthconsults@gmail.com', '0720401194', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '32153893', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240503h7o1wxG', '2022-12-20 03:59:15'),
-('Qpg0KRBDi5y', 'Aisha', 'ashacadey68@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-05 20:28:46'),
-('rF06Rs7qMVc', 'Nelson', 'nelswani@gmail.com', '0719584440', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, 'N/A', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-14 09:29:55'),
-('rYBxskOQ81d', 'brenton', 'brentonbrysen42@gmail.com', '94044359988', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '9584393', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-01 16:07:13'),
-('rYni0fbW1Us', 'Joy Mwariri', 'mwaririjoy@gmail.com', '0719482442', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, 'N/A', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-07 15:38:53'),
-('s6HugqmKJbN', 'John', 'john.ndungu@vesencomputing.com', '0702670301', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '34132269', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-02-08 14:55:20'),
-('t3JCHT8PK5F', 'Mugambi Manyara', 'pmanyara97@gmail.com', '0745858891', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', 'af76481c-7d5a-4575-af85-06d7f3deb73e.jpg', '121212', '1999-11-02', 'Daniel Bigirimana', '0756342127', 'admin', 'A011237AS54', NULL, 'APP20240504ZA2RxM3', '2023-05-12 00:02:21'),
-('T3NqboDua4S', 'Ian Ap', 'apindiian@gmail.com', '+254717456149', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '31742846', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-10 14:58:36'),
-('T6vMOgDQECR', 'Allan Ndirangu', 'ndiranguallan4@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-05-07 15:08:40'),
-('TLGpBvZjmxs', 'Chao Beverlyn', 'bevpaisley7@gmail.com', '0716269067', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '36677531', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-05 13:54:33'),
-('tLMHra4nZxA', 'John Jambo', 'admin@jamboshop.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2022-12-19 01:42:16'),
-('tTwWseR4VdA', 'Esokoni Kenya', 'esokonik@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-02-28 01:38:39'),
-('twuKgIfxJQM', 'julliet  ngina  nyamari', 'jullietnginah@gmail.com', '0796613940', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '35113170', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2022-12-30 02:41:09'),
-('tx9YXQikVn0', 'Amita', 'Eastafricansugarbaby@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-02-02 06:43:50'),
-('udSX6zV1Dc8', 'Mwilaria', 'evansmwika@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-06 08:58:35'),
-('USR20230213JILZU0Y', 'michal', 'dummye72@gmail.com', '702710749', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-02-13 11:09:40'),
-('USR20230424t6dYZcA', 'Lynette Mwangi', 'lynette.mwangi@vesencomputing.com', '0719838277', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-04-24 16:05:33'),
-('USR20230512ougrvlQ', 'Pat', 'santojuliototsan2@gmail.com', '0745858891', '$2y$11$RaNPIPKn0y.sW4OhjdhE/OSEYCFdSDpicx7qraKVslOTV78i/B3.G', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2023-05-12 12:39:07'),
-('USR20230524S7pw85F', 'John Deere', 'juma@psychx.io', '0725608292', '$2y$11$xJsS7ghRAGRYVOPW7UucR.l0plWOXVE7l6SPtjJUQuYzdIHTZ4S06', NULL, '', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-05-24 14:26:21'),
-('USR202306055kfTVb0', 'Faith N Isaac', 'isaacfaith593@gmail.com', '0725432005', '$2y$11$8meEDMAnJ0JjweEBvGMJwOiiABoEKfx4L7Ggue47v8yl3yKgThDCq', 'FilmImage20230605at013840pmkcwhezdx.jpg', '', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2023-06-05 13:00:45'),
-('USR20230608R1vqLrk', 'Pastor John Ngahu', 'thecampuspixel@gmail.com', '0715619700', '$2y$11$KaLZFTrpwm3txV2aXT8EmuA6a9bJ4AP9dpEP9H5cT3p87W6nZ8xLa', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-06-08 13:01:37'),
-('USR20230608RxgJB10', 'Irene', 'irenemwaniki93@gmail.com', '0715282893', '$2y$11$hMhp.ssZC9JyCoVBRNzzCucOX.HGh3T5BV9/ft85Z3P9.ZiQGozu6', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-06-08 12:10:17'),
-('USR20230608VhuE5tc', 'Gladys Wahithe', 'gladyswahithe@gmail.com', '+254791245235', '$2y$11$VvVpvUrsFhMGWS5yrKJkvehTExWl2gIL4C/R8dTabBOt0OFHSxYa6', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2023-06-08 14:13:34'),
-('USR20230609IsD5thP', 'Juma', 'juma.theophilus@jasirifellow.org', '0720401194', '$2y$11$leWS/CcUdfOhMIEQv5..aO07qVkbwzYelFB.R2Kr6KDRlKBVn66Oe', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-06-09 15:38:45'),
-('USR20230609neXZ1vW', 'Mike March', 'michaelselunani@vesencomputing.com', '01234561', '$2y$11$CV1L807RBRpTUP1GDAEqIuD2IIA.a5zWI0AoKpio.SOdhHqIbXf52', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-06-09 18:54:00'),
-('USR20230612projgKu', 'Hannah', 'nhgachugi@gmail.com', '0728011165', '$2y$11$RkX5e6mU9HfAd5dcR049nuRW6bQ4/53COhw5hOIohrirAGAha0eC6', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-06-12 14:31:47'),
-('USR20230619zuWMt39', 'hellenalice1@gmail.com', 'hellenalice1@gmail.com', '0715684901', '$2y$11$SI9v5zArSIPTbjQtxHBicesHcFlNsarnNZ.GGDb5fSbb4ZGk63b/6', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-06-19 10:41:56'),
-('USR20230620JIGX2YL', 'jacinta muriuki', 'wagithijacinta@gmail.com', '+254704322307', '$2y$11$sV5mgWJ9a2r81R.N/1ij0OLc2HFL42/P0XZ6wpTznEoPGH0DN8WcW', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-06-20 17:41:55'),
-('USR20230630MCVs2rk', 'Paul Ndirangu', 'pandirangu@gmail.com', NULL, '$2y$11$JXfLOv5aik2NPckrtgOUnOqOmbsvnNuk16gx.tBa/Boeo.oitsIjC', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-06-30 21:02:15'),
-('USR20230705g04Pu5a', 'Lunani Mikael', 'michael1998march@gmail.com', '0123456', '$2y$11$AzCpxHO/CoEBLvgEzdObIeHXn0InTighxdXCWgymkezRzV/dIKQ8e', 'CinemasImage20230705at124029pmixro9g18.jpg', '', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-07-05 12:40:29'),
-('USR20230706THOYmVc', 'Beryl', 'berylmungai@gmail.com', '079143500', '$2y$11$PwSPYf8Me1mLRBGq3lZN0Owoq0EsV.QcAAUfLpeZWX27ynpspPayK', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-07-06 11:11:20'),
-('USR20230709u7d4WRs', 'Laura', 'lauramurumba@gmail.com', '0721312903', '$2y$11$dn15RYTkoxm3nzA63bxRwuZhI2.BdhIkbkFxgcE0ebGIH8e4t3l5W', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-07-09 09:46:03'),
-('USR20230715s3VgKlH', 'chege maria', 'chegemaria10@gmail.com', NULL, '$2y$11$YX/DJ8ZXdyMpSkb.I0o24eazwN4VDSIKOPHyL/.ZAm1w15pi6gTxK', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-07-15 11:36:36'),
-('USR20230722zFk0ugQ', 'Ahmed Sultan Mirza', 'ahmed@thequantumz.com', NULL, '$2y$11$6Jc45y52Uj8gQYQFKho7GO2EJbYfiE/fmONq9pqd4u9M6ZMs2keyq', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-07-22 15:03:35'),
-('USR20230723NDeP0aw', 'Susan Njeri', 'njerisusan160@gmail.com', NULL, '$2y$11$2etp84Ulv95ZdgCB83o1mOkqpHdHEILTYEOE/xm171eN6y4rp5faO', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-07-23 16:55:04'),
-('USR20230724NiKXICo', 'Esther Mwongeli', 'esthermwongeli625@gmail.com', NULL, '$2y$11$4sVux53POqXhAoWE7U0D5ug0bMTHrYo7Lt7bS1167WKgDcTLZSpxK', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-07-24 18:51:13'),
-('USR20230724x5Wro4P', 'Mahihu Njogu', 'jehumahesh@gmail.com', NULL, '$2y$11$7M2xpShWgH40u9F1gdRBrePt2vZE4PXU2B6GYqJlLZhBf2S.pshKu', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-07-24 12:48:46'),
-('USR20230806Am7bgQT', 'Sherise Mu', 'sherisebecky@gmail.com', NULL, '$2y$11$H25jh0GKgLQ5gX97AvS5oeRPJ5d5bP5JUxa7ZpyFS7wnosMKsdzYu', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-06 22:19:25'),
-('USR202308107uwLvcy', 'Francisca', 'cescamusyoki@gmail.com', '0791853556', '$2y$11$Lxr32tlmxK8Fa3pq8xVdoeOOh8vOrcji9RN4Gw7q1xJWce8XpGeUi', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-10 15:36:14'),
-('USR20230810OXprDv1', 'Francisca', 'munyivacesca@gmail.com', '0791853556', '$2y$11$e4F6BLxyj/SdxTgmE3QE8O4oTaUhfFF1Q8Tj8ljS42d16f4wiafkS', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-10 15:40:55'),
-('USR202308138wlY2s4', 'RUTH NJUGUNA', 'njugunaruth821@gmail.com', NULL, '$2y$11$151z1Zxwit.UBY5MhXIGGOqGs4kT8HUCqcH5/C9qomHpSmU.grJie', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-13 12:08:03'),
-('USR20230813DyBYA6S', 'Mary Nungari', 'marynungari366@gmail.com', '0715771424', '$2y$11$OLXK7ws5LYYM/HfUR0ywKumPAlXVH3Cmh.F7U6.HqPPOepaeUdNEC', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-13 15:43:05'),
-('USR20230814wlFqrCW', 'VALLERY OUMA', 'Oumavallery17@yahoo.com', '0723664318', '$2y$11$oU4fls4.oCvaXrDw1S6p1.i00hnz.FEcNQrxOjAZk/ymjE24v1jL2', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-14 11:03:37'),
-('USR20230815chidPaQ', 'MUNGAI ALVIN KAMAU', 'akm@students.uonbi.ac.ke', NULL, '$2y$11$SLtchOZuEHXWhvvBHEnZ0OEkff1tHH7beW8qjjLqqzFN1SuGVNTle', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-15 12:48:55'),
-('USR202308179pNJ0r5', 'ANTONY MANGOLI', 'antocozin@gmail.com', NULL, '$2y$11$7uzpzISDhwhI6aV2PQ3sGO2e2jVgHe.7l2pUJ2l8.3Vkr84HgsasC', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-17 12:05:57'),
-('USR20230821KTq49Y0', 'Naomi Adema', 'ademanaomi@gmail.com', NULL, '$2y$11$nyPnKZuySXgIVrFRmMmLseMNOBeSU/MstBVfCUE1NWKYfGzoRn..m', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-21 02:48:50'),
-('USR202308230y5c9Ul', 'Joy Njoki', 'njokinjiru24@gmail.com', '0722857940', '$2y$11$FrZR0lj6g8EEYnrXsUwY1.IAgZKFE5KVFSv394a1pITvsIp./04tG', NULL, '', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-23 16:03:55'),
-('USR20230823NMByH9z', 'Annah Kimani', 'akimani66@gmail.com', NULL, '$2y$11$/dU0O4MPnh3nP0gNt576DOZpV3ZAeoAoY1qyWuA80se3tN4ndQyJi', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-23 14:11:09'),
-('USR20230830txqlPeR', 'Brian Muchanga', 'brianmuchanga@gmail.com', NULL, '$2y$11$hNN50hvUfphiaw37Bc9J2.EdJvWIDEU20mqGCCB3fO6no8oJBYCv.', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-08-30 11:22:58'),
-('USR20230908RtrP0ah', 'Juma', 'jumatheofilo@gmail.com', '0725608292', '$2y$11$UKldW7SNI8awGqi/Q.cyDuYAS1g2BHVr0TZa8EUDyDnxnFJw5UZV6', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-09-08 15:22:31'),
-('USR20230911KIbBhok', 'Stella Kidera', 'kiderastella@gmail.com', NULL, '$2y$11$xe2EJXfbXL4O700hU6YMX.oxCWp9wDVdUV5..13/h2MDqAKSSy4mi', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2023-09-11 10:32:37'),
-('USR20230912fbNRjHv', 'Annet Nyabuto', 'annetgnyabuto@gmail.com', '0748491331', '$2y$11$8uBLQePfKMnIS8WJW6JPf.JkK/6UBdCOTIj4ZaMW14aJpLEgNOpBW', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-09-12 18:04:04'),
-('USR20230913u7I68tN', 'Daisy Gitimu', 'daisygitimu@gmail.com', NULL, '$2y$11$rCWJtxIcD7fSIbUG/eZ18O7kt2If3V.SZkaayh3SBfu7Qp2qWTDdW', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-09-13 13:12:20'),
-('USR20230926LsRXnKO', 'Andrew', 'andymusili@gmail.com', '0719498657', '$2y$11$fi6JLyWtVW6/D1xCXNQn7.106yi/w8bDuiQCN3X43IGc11xr1el16', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-09-26 17:15:13'),
-('USR20240109VYT2gw5', 'Patience', 'Patsubira2@gmail.com', '0703340306', '$2y$11$R0pBUsA5N8Ae9/w.zR9JUOo4EeFXns26dYj1190K5eRIFrrVW8e5y', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2024-01-09 22:34:06'),
-('USR202401249iL2MFx', 'Hafiz Nguyen', 'fifymutune@gmail.com', '254792837234', '$2y$11$2D7vFo8vkp673NmPnslp0O26b.KRSBq8k0AvcNC1zeBsSwotsr1ia', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2024-01-24 12:57:34'),
-('USR20240124zcKwWjS', 'Hafiz Nguyen', 'mutune@isa-fellow.com', '+4917674857071', '$2y$11$.600ikdX4rjXWf.0tmOt2uCcRQcdEMPbiTKY0MHOenbNNOFKoyQMe', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2024-01-24 12:56:08'),
-('USR20240129b3UwrMn', 'Valentine', 'valentinewanjiku77@gmail.com', '0113661857', '$2y$11$2txKmQtiwRbDpCUofpPZLuRr.0YEYloYNBP.TzBRcaUtqmLbFfNq.', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2024-01-29 19:16:05'),
-('USR20240130XilJEWc', 'Vickey', 'vickeymwema@gmail.com', '0734296082', '$2y$11$ZiAY2CPr1AD8D/.Qi6.uZ.cP5D778LiJZ3efQsK0UxKnCQb5Fvy1e', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2024-01-30 14:13:06'),
-('USR20240212EnjZrQG', 'Juma', 'hello@psychx.io', '0720401194', '$2y$11$6nCQkBgUwZgE6umdOEgwZOyImE8sKvo6dp5bd7We4d9phmxLqbDv2', 'HealthImage20240212at065017pm4oajedl5.png', '32153893', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2024-02-12 18:50:17'),
-('USR20240312cCOZx9i', 'mutune', 'mutunefreda16@gmail.com', '710544464', '$2y$11$0EXW/.WmoXn0/erzZR.ul.q6pU4G6ApQFUJJZQwLpKfrK9pkWvigq', 'HealthImage20240312at012139pm6c5z2xy1.jpg', '32059698', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2024-03-12 13:21:39'),
-('USR20240318JTHl7pP', 'Amina Swedi', 'aminaswedi88@gmail.com', '0726291040', '$2y$11$/.PQRwKsGkWgz66akLNKC.ImGomOj7wSVlUl6MAbUcNwAKut8Qba6', 'HealthImage20240318at121205pmtq7ou9j6.jpg', '', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240503h7o1wxG', '2024-03-18 12:12:05'),
-('USR20240325mLbhO7p', 'Moses', 'mose.marangu@gmail.com', '0717333585', '$2y$11$A5homObJ8KDEeIDkGTNg8OhEP9xzvyyLwJgNJ3M59.QmZfFqWAOlG', 'TherapyImage20240325at091119am04tga9my.jpg', '34172432', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2024-03-25 08:43:16'),
-('USR20240417760cDO4', 'test', 'test@gmail.com', '0717866722', '$2y$11$pkAAPzh2Xg0EKORx3gD/u.Ege4NxHvE.PwJHdddZ.2JowKwie3Qfe', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2024-04-17 16:34:10'),
-('USR20240501uvAJCF9', 'Redempta', 'redempta96@gmail.com', '0701413367', '$2y$11$Voct8pJXFnjelyGz3v8jQ.RdF2at3HjnPMHkSXaubpcvJoqoY1wHS', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2024-05-01 12:38:20'),
-('USR20240508ai12qV9', 'Guka', 'inof@gmail.com', '07123454545', '$2y$11$Gh5z0xCzw/F0we1oWqbJYuuTOa9SkYJLNh/ZTQpcZbnjdD8Oa7aTG', NULL, '1234', '2000-01-01', 'Gudi', '07123454545', 'self', '1234', NULL, 'APP20240504ZA2RxM3', '2024-05-08 09:04:44'),
-('USR202405124TV5LHM', 'John Ndungu', 'john.ndungu@veseninternal.co.ke', '0702670301', '$2y$11$pR4a4SvT.T6ZQMJk3hD/ve4cGZLUQ9PZjXipzet4yVrglY42tshKG', NULL, '34132269', '1997-11-27', 'Peter Chege', '0713564851', 'self', 'A0345699122', NULL, 'APP20240504ZA2RxM3', '2024-05-12 15:18:03'),
-('USR202405141nNKm3c', 'Teresa masha', 'tmasha285@gmail.com', '726245451', '$2y$11$AJeKkeKkPjAJMiLSdTs8s.fUTYHAG.R8m5vlvFi7K0NzsFQrM5nW2', 'default.png', '234123', '1991-11-19', 'rosebella obura', '726245451', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:40:58'),
-('USR202405142IiCHu5', 'jacquelynne kihuha', 'jgkihuha@gmail.com', '722573253', '$2y$11$yNpnlp8QuoOVVBIprvTQsuc39KVCDhOVLFZRTBk4sY.ribxQUjWvu', 'default.png', '123456', '1996-05-06', 'Annabel wambui', '722573253', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:00'),
-('USR202405144j6SKtF', 'purity wachira', 'muthoniwpuritie@gmail.com', '748111439', '$2y$11$MGbSm6tOwlg35G0AbSyaWeOZqpOOwLJ7lRHin6GoxJ1PUVPv6Xlxi', 'default.png', '123456', '1970-01-01', 'Joyce wachira', '748111439', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:00'),
-('USR202405145JRy6aq', 'valerian micheni', 'valerian. micheni@gmail.com', '722466033', '$2y$11$qEooaFqBpqrW.aN4N8hyhejF8de7pWtsapGO2oVJrCf30C/5FRXAy', 'default.png', '123456', '1978-04-22', 'Caroline micheni ', '722466033', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:00'),
-('USR20240514DnZzcEW', 'zilla mwimali', 'zillamwimmali@gmail.com', '796760359', '$2y$11$cwRo2/xwz9PAoICN0cKCPeyABUnVmDrdO6R5ryQCOUwBejNbk6SGO', 'default.png', '123456', '1998-03-19', 'dedan wamalwa', '796760359', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:00'),
-('USR20240514dU2hb5W', 'Adrian ndeti', 'ndetiadrian@gmail. com', '713207067', '$2y$11$7G2MTJqi3L1c0wiuEK7cUeQMilFd1RWILxkJ4yuJRa.1mNXbL2r0G', 'default.png', '123456', '1996-02-08', 'Harriet mwelu', '713207067', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:00'),
-('USR20240514FGW2QOL', 'loice onyino', 'loiceonyino@gmail.com', '715542010', '$2y$11$1ic3zv9ZGFfYBxxbZpOjzu7RlKJI0rKGYWMmc9F.tgGJEFwyl1j/u', 'default.png', '123456', '1995-12-01', 'seruya butembu', '715542010', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:40:59'),
-('USR20240514GgIsAfP', 'Patrick kimazi', 'kimanzi.patrick@yahoo.com', '717139095', '$2y$11$QqUpI./5N6yva5/QxFbihOOC2okv3Q4idFOLAArPB3rL5yS12jkV.', 'default.png', '123456', '1964-10-19', 'tabitha mwendwa ', '717139095', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:01'),
-('USR20240514i4o6x7w', 'ceciliah njau', 'ceciliahnjau8@gmail.com', '723848390', '$2y$11$0BXFOARo3apCbohVXwk85OtIDthIzH599YVTl2bAJyQSPExxvNyc.', 'default.png', '123456', '1997-05-08', 'Ben njau', '723848390', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:40:58'),
-('USR20240514KZyc5NQ', 'Christine ', 'chichiartgallery@gmail.com', '700000000', '$2y$11$s7F7kIqB6yBmuDi4ilZQDOHi18CfytNKLnDfRabS1zKrqkXikgHFW', 'default.png', '123456', '1970-01-01', 'NA', 'NA', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:01'),
-('USR20240514L7a9k48', 'Angela nyona', 'queengie6@gmail.com', '720799279', '$2y$11$ncH/BaApXjLmDGmoyX.4iO0K2eF1yotYBAl549d3keOHHtYqsCN6m', 'default.png', '123456', '1996-05-03', 'Kennedy okolo', '720799279', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:01'),
-('USR20240514m0xwg7i', 'mary mukami ', 'marymukami34@gmail.com ', '724173003', '$2y$11$WrB.qn5PGZE2leb0R9n1UujXOP2jGU0Du9pWDb6gJ2ll1wZzXbyla', 'default.png', '123456', '1970-11-08', 'Eunice njue', '724173003', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:01'),
-('USR20240514nDRjgGv', 'derrick njiru', 'derrickmuthomi9@gmail.com', '743335366', '$2y$11$tZm6bMd9m6nJtt8CVepkjuEiiqrKQ/5qrZzVOujcYYf78rO6HetAu', 'default.png', '123456', '1996-02-29', 'patience mumbi', '743335366', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:40:59'),
-('USR20240514qXTmQCb', 'Kelvin machara', 'macharaclement@gmail.com', '722316475', '$2y$11$LSSqBWSpdGi4megIN1Qp0e68TwnxRi/FrD/qEidSl03wJq0ridn/C', 'default.png', '123456', '1995-07-08', 'mercy machara', '722316475', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:40:59'),
-('USR20240514R8c2l0d', 'Evelyn muregi', 'eva.muregi@gmail.com', '722820504', '$2y$11$u6mdoEtdXiqhusV1uDiVl.u0wMXW34UjUuRSbfIAIqeSgql.qkw.i', 'default.png', '123456', '1970-01-01', 'Susan njuguna', '722820504', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:40:59'),
-('USR20240514RAOle9j', 'Alfred otieno', 'Alfredkiasa30@gmail.com', '701738290', '$2y$11$d/zZf4gLjSR9VeO6ju2zXu0loat6g2w3FzF0/zObRJbX6kBvxPHMO', 'default.png', '123456', '2000-04-15', 'Doreen otieno', '701738290', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:40:58'),
-('USR20240514ucEIiYQ', 'Victor lando', 'landovictor88@gmail.com', '722977249', '$2y$11$uSrec.Uc3CYJYfUo0MqbYePs/hksAoasfI8BrtrmjgrGX6XQeEs6m', 'default.png', '123456', '1995-07-12', 'John wafula', '722977249', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:40:59'),
-('USR20240514UJo78bB', 'Esther wangui ', 'Ewangui257@gmail. com', '742740762', '$2y$11$wR0vKjQByd2TgAU86pR7Y.RevIHPfowDbyH1H1Eo7v00kNBLmDG6.', 'default.png', '123456', '1984-12-04', 'Hannah githinji', '742740762', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:00'),
-('USR20240514vIZhJ8i', 'Dan shimoli', 'Danshimoli@gmail.com', '707194586', '$2y$11$gvrnl9006oYXMRVt43SEEuYm7rQwT2FLxhQXnUpzBFFxpnVPltAam', 'default.png', '123456', '1995-09-06', 'alubisia', '707194586', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:41:00'),
-('USR20240514xFiDaPZ', 'Monica waithira', 'monicahwaithira76@gmail.com', '706055015', '$2y$11$UEY.62WWZUskhV9iEMRjZO.ogstWd2oohvLetXM/VVeE.EZs.Glau', 'default.png', '123456', '1998-07-05', 'Samuel ', '706055015', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:40:59'),
-('USR20240514zoLSilU', 'monica njoroge', 'Jacksonmonica720@gmail.com', '727570606', '$2y$11$HGRb3UaYVRc5IM24HVxyNevJE9xdAnahdMqUUIF.I/9Fs3YuEyZWa', 'default.png', '123456', '2000-05-23', 'pricila nungari', '727570606', 'hZCklWu', 'NA', NULL, 'APP20240504TnEX3sj', '2024-05-14 09:40:58'),
-('USR20240516heYzMC9', 'Fiona', 'fiwekulo@gmail.com', '726245451', '$2y$11$Zrc0JX13rti6FntfsTg3Z.YigW/tgY7w.aOApWuIBqXMEw66z.dfG', 'default.png', '234123', '1991-11-19', 'rosebella obura', '726245451', 'LAN20230228JNo0abc', 'NA', 4, 'APP20240503h7o1wxG', '2024-05-16 11:36:58'),
-('USR20240526mRsQZj6', 'St June', 'santojuliototsan@gmail.com', '9985858891', '$2y$11$4M7Mw3N7BOEjHx6uNBQYUuJ0E/I4G3/1ewp1IlPnMKKs5PnXmTwEG', NULL, '1234', '2024-05-24', 'Dan', '0745858891', 'admin', '1234', NULL, 'APP20240506hExZ3OM', '2024-05-26 22:48:41'),
-('USR20240724I9kvpOy', 'edwin', 'nmwendi@gmail.com', '+254720647557', '$2y$11$FFUrCpANB1fRh0Te7HKd7epy8abHot8IzvQjLQjlD/e9f.ZF3rCle', NULL, '22855419', '2001-06-05', 'Test Me', '+254720647557', 'self', 'A003151280B', NULL, NULL, '2024-07-24 09:40:16'),
-('USR20240809YVu108E', 'MkaRUfGZCXEeYNno', 'matamuriea7982@gmail.com', '7918002100', '$2y$11$bJAAGYofI213a2GYpq7CjOu13BAC2AOssgqFJ9Bf27hSck0iNiZ0e', NULL, 'qItlKdohDMv', '2024-09-08', 'WHrtzMhlQGsIdvX', '7776193540', 'self', 'BSfgKdlEAts', NULL, NULL, '2024-08-09 22:54:20'),
-('USR20240812LEIRlBP', 'xMyvSqcYjiKXTpO', 'hyksleihl2001@gmail.com', '6675307914', '$2y$11$iPytVDaJWuQQ/tkLAv/00uZ32mfmhepbLLhWL7BM6zZpNtoTrBlfm', NULL, 'TVfQSnJCqu', '2024-12-08', 'nrwTeEubkiJxzSgH', '9291433787', 'self', 'somNxfkOlT', NULL, NULL, '2024-08-12 15:14:59'),
-('UVO4WqP9LzE', 'Ayub Toussaint', 'prinzbonz@gmail.com', '0745858891', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '123123123', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2022-12-15 01:23:31'),
-('vCOJRmr5U0K', 'Wambui Mwaura', 'mwauraw029@gmail.com', '+254 769 467 176', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '35266281', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-02-27 01:21:24'),
-('vdPby5mEYeA', 'Neddy Lusimbo', 'Lusimboneddy@gmail.com', '0702879696', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '30593954', NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-04-18 15:32:07'),
-('w0pxq1Tnogs', 'PsychX', 'psychxcommunication@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-07 13:24:00'),
-('W1g72jy0FAe', 'BIBO', 'bibo@hardware.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-04-29 16:45:15'),
-('wRaFnGS6itU', 'Jackson Kimeu', 'jackeym89@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-18 11:47:27'),
-('xso3gzWnRw8', 'Njoki', 'njokimary47@gmail.com', '0726551488', '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, '31451051', NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240503h7o1wxG', '2023-01-17 00:46:19'),
-('YFiowAQku7z', 'Vesen Computing Solutions', 'support@vesencomputing.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'self', NULL, NULL, 'APP20240504ZA2RxM3', '2023-01-16 05:02:54'),
-('YSA7c9pthi5', 'John', 'admin@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-04-21 12:01:29'),
-('Z79PFDXvObR', 'Laurin M', 'laurinmungai@gmail.com', NULL, '$2y$11$NHJnqtVe6MVcEPv90Cahku0cuor/eJA6BdaUnT4.QUPo6SynpcCFy', NULL, NULL, NULL, NULL, NULL, 'admin', NULL, NULL, 'APP20240504ZA2RxM3', '2023-03-24 11:00:30');
+('USR20250222I123x4O', 'victor', 'victor@gmail.com', '254722617737', '$2y$11$QlX1upYXbTtUhq7pBKchMe9AqcZjIbf0oAQ/rjUinEfnUrBfQI2Wm', 'user.png', '38586125', '2001-09-12', 'Emmanuel', '0722617301', 'admin', 'A014612769B', NULL, NULL, '2025-02-22 23:23:08'),
+('USR20250222nVscMZI', 'meshack Kipkoech', 'meshackyegon@gmail.com', '254722617737', '$2y$11$P8GIHyal2r3wD1repDxJYeG9tWGi9qKUD9ldpK8/W1t4ZhHBR3Nr.', 'PsychImage20250222at014821pmv42bst71.png', '38586125', '2001-09-12', 'Mercy Lerionka', '254722805979', 'self', 'A014612769B', NULL, NULL, '2025-02-22 11:56:42');
 
 --
 -- Indexes for dumped tables
@@ -1361,6 +1541,12 @@ ALTER TABLE `admin`
 --
 ALTER TABLE `amenities`
   ADD PRIMARY KEY (`amenities_id`);
+
+--
+-- Indexes for table `architect`
+--
+ALTER TABLE `architect`
+  ADD PRIMARY KEY (`architect_id`);
 
 --
 -- Indexes for table `banner`
@@ -1382,6 +1568,18 @@ ALTER TABLE `booking`
   ADD PRIMARY KEY (`booking_id`);
 
 --
+-- Indexes for table `bookings`
+--
+ALTER TABLE `bookings`
+  ADD PRIMARY KEY (`booking_id`);
+
+--
+-- Indexes for table `book_visit`
+--
+ALTER TABLE `book_visit`
+  ADD PRIMARY KEY (`book_visit_id`);
+
+--
 -- Indexes for table `callback`
 --
 ALTER TABLE `callback`
@@ -1400,6 +1598,12 @@ ALTER TABLE `check_in_image`
 --
 ALTER TABLE `currency`
   ADD PRIMARY KEY (`currency_id`);
+
+--
+-- Indexes for table `electrical`
+--
+ALTER TABLE `electrical`
+  ADD PRIMARY KEY (`electrical_id`);
 
 --
 -- Indexes for table `expense`
@@ -1486,6 +1690,21 @@ ALTER TABLE `payment`
   ADD PRIMARY KEY (`payment_id`);
 
 --
+-- Indexes for table `payments`
+--
+ALTER TABLE `payments`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `payment_id` (`payment_id`),
+  ADD UNIQUE KEY `merchantRequestID` (`merchantRequestID`),
+  ADD UNIQUE KEY `checkoutRequestID` (`checkoutRequestID`);
+
+--
+-- Indexes for table `project_assignment`
+--
+ALTER TABLE `project_assignment`
+  ADD PRIMARY KEY (`assign_id`);
+
+--
 -- Indexes for table `property`
 --
 ALTER TABLE `property`
@@ -1517,10 +1736,22 @@ ALTER TABLE `request`
   ADD PRIMARY KEY (`request_id`);
 
 --
+-- Indexes for table `service`
+--
+ALTER TABLE `service`
+  ADD PRIMARY KEY (`service_id`);
+
+--
 -- Indexes for table `standing_order`
 --
 ALTER TABLE `standing_order`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `structural`
+--
+ALTER TABLE `structural`
+  ADD PRIMARY KEY (`structural_id`);
 
 --
 -- Indexes for table `user`
@@ -1534,16 +1765,28 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `bookings`
+--
+ALTER TABLE `bookings`
+  MODIFY `booking_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=250;
+
+--
 -- AUTO_INCREMENT for table `currency`
 --
 ALTER TABLE `currency`
-  MODIFY `currency_id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `currency_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `payments`
+--
+ALTER TABLE `payments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `standing_order`
 --
 ALTER TABLE `standing_order`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

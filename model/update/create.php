@@ -18,6 +18,11 @@ switch ($action) {
     case 'architect_edit':
         post_architect_edit();
         break;
+    case 'assign_architect':
+        assign_architect();
+        break;
+
+       
     case 'structural_edit':
         post_structural_edit();
         break;
@@ -152,6 +157,9 @@ switch ($action) {
         break;
     case 'register':
         post_user($_GET['from']);
+        break;
+    case 'book_visit':
+        post_visit();
         break;
     case 'simple':
         post_simple($_GET['table'], $_GET['url']);
@@ -288,6 +296,46 @@ function post_payment()
 
     $success['view_payments'] = 225;
     render_success($return_url);
+}
+function post_visit()
+{
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = tenant_url . "view_payments";
+
+    for_loop();
+
+    $arr['payment_id'] = create_id('payment', 'payment_id');
+    $phone = $arr['user_phone'];
+    $uid = $arr['user_id'];
+    $rent = $arr['amount'];
+    $id =  $arr['project_id'];
+    $response = stk_push_payment($rent, $phone, $uid);
+    // cout($response);
+    $response = json_decode($response, true);
+
+    // Check if standing order creation was successful
+    if (!isset($response['ResponseCode']) || $response['ResponseCode'] != "0") {
+        $error['stk_push'] = 104;
+        $error_message = isset($response['ResponseDescription']) ? 
+        $response['ResponseDescription'] : 'Failed to initiate STK Push';
+        error_checker($return_url . 'book_visit?id=' . encrypt($id) . '&error=' . urlencode($error_message));
+        return; 
+    }
+
+    // STK Push was successfully initiated
+    $arr['merchantRequestID'] = $response['MerchantRequestID'];
+    $arr['checkoutRequestID'] = $response['CheckoutRequestID'];
+    $arr['customerMessage'] = $response['CustomerMessage'];
+    if (!build_sql_insert('payments', $arr)) {
+        $error['view_payments'] = 104;
+        error_checker(tenant_url . 'book_visit?id=' . encrypt($id) . '&error=' . urlencode('Failed to insert request'));
+        return;  
+    }
+    $success["cooperative"] = 202;
+    render_success($return_url);
+
 }
 
 function post_user_edit()
@@ -671,8 +719,70 @@ function paybill_standing_order($rent, $phone, $uid, $starting_from, $end_date)
 
     return $response;
 }
+function stk_push_payment($rent, $phone, $uid)
+{
+   
+    $consumerKey = "6ESTZxev4Gba5AFQMQQz0e2j1nYku0WWrZulGMsJPgRqvL1x"; 
+    $consumerSecret = "JPP48K3zch4HFF0oJoxkDbUFY2G3jCOT6nsHsS4R4ILeLJLViXhz82Dl0kHwiRy8";
+    $credentials = base64_encode($consumerKey . ":" . $consumerSecret);
 
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_HTTPHEADER => array(
+            "Authorization: Basic $credentials"
+        ),
+    ));
 
+    $token_response = curl_exec($curl);
+    curl_close($curl);
+
+    $token_data = json_decode($token_response, true);
+    $access_token = $token_data['access_token'] ?? '';
+
+    if (empty($access_token)) {
+        return json_encode(['error' => 'Unable to get access token']);
+    }
+
+ 
+    $BusinessShortCode = "174379"; 
+    $PassKey = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"; 
+    $Timestamp = date("YmdHis");
+    $Password = base64_encode($BusinessShortCode . $PassKey . $Timestamp);
+    $CallbackURL = "https://domysuma.compassionaid.org/callback.php"; 
+
+    $stk_push_data = [
+        "BusinessShortCode" => $BusinessShortCode,
+        "Password" => $Password,
+        "Timestamp" => $Timestamp,
+        "TransactionType" => "CustomerPayBillOnline",
+        "Amount" => $rent,
+        "PartyA" => $phone,
+        "PartyB" => $BusinessShortCode,
+        "PhoneNumber" => $phone,
+        "CallBackURL" => $CallbackURL,
+        "AccountReference" => $uid,
+        "TransactionDesc" => "Book Visit Payment"
+    ];
+
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_POST => true,
+        CURLOPT_POSTFIELDS => json_encode($stk_push_data),
+        CURLOPT_HTTPHEADER => array(
+            "Authorization: Bearer $access_token",
+            "Content-Type: application/json"
+        ),
+    ));
+
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    return $response;
+}
 function post_booking2()
 {
     global $arr;
@@ -1273,6 +1383,7 @@ function post_project()
     global $error;
     global $success;
     $return_url = tenant_url . 'view_projects';
+   
 
     if (isset($_POST['property_id'])) {
         $arr['property_id'] = implode(",", $_POST['property_id']);
@@ -1282,18 +1393,17 @@ function post_project()
        $return_url = base_url . 'login';
        $error['project'] = 1163;
     }
-
+    // if (isset($_POST['bungalow_features']) && is_array($_POST['bungalow_features'])) {
+    //     $arr['bungalow_features'] = json_encode($_POST['bungalow_features']); // Store as JSON
+    // }
+    // cout($_POST);
     for_loop(); 
     $arr['user_id'] = $_SESSION['user_id'];
     $arr['project_id'] = create_id('project', 'project_id');
-    
-    // if (!$arr['project']) {
-    //     $error['project'] = 1163;
 
-    //     error_checker($return_url);
-    //     return;
-    // }
-    cout($arr);
+    
+
+    
     if (!build_sql_insert('project', $arr)) {
         $error['project'] = 140;
         error_checker($return_url);
@@ -1301,6 +1411,7 @@ function post_project()
         $success['project'] = 207;
         render_success($return_url);
     }
+    
 }
 function post_electrical()
 {
@@ -1401,6 +1512,72 @@ function post_landlord()
     $success['landlord'] = 207;
     render_success($return_url);
 }
+function assign_architect() {
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = architects_url . 'assign_engineer';
+
+    if (!isset($_POST['project_id']) || empty($_POST['project_id'])) {
+        $error['project_assignment'] = "Project ID is required.";
+        error_checker($return_url);
+        return;
+    }
+
+    $project_id = $_POST['project_id'];
+
+    if (isset($_POST['property_id'])) {
+        $arr['property_id'] = implode(",", $_POST['property_id']);
+        unset($_POST['property_id']);
+    }
+
+    // Check if the project already has an assigned architect
+    $existing_assignment = get_by_field('project_assignment', 'project_id', $project_id);
+    // cout($existing_assignment);
+
+    if ($existing_assignment) {
+        $table_id = $existing_assignment['assign_id'];
+
+        // If senior architect is assigned, update the junior architect
+        if (!empty($existing_assignment['senior_architect_id']) && empty($existing_assignment['junior_architect_id'])) {
+            for_loop();
+          
+
+            if (!build_sql_edit('project_assignment', $arr, $table_id, 'assign_id')) {
+                $error['project_assignment'] = "Failed to update junior architect.";
+                error_checker($return_url . '?id=' . encrypt($project_id));
+                return;
+            }
+
+            $success['project_assignment'] = "Junior architect assigned successfully.";
+            render_success($return_url . '?id=' . encrypt($project_id));
+            return;
+        }
+
+        $error['project_assignment'] = "This project already has both a senior and a junior architect.";
+        error_checker($return_url . '?id=' . encrypt($project_id));
+        return;
+    }
+
+    for_loop();
+
+    // Assign unique ID for project assignment
+    $arr['assign_id'] = create_id('project_assignment', 'assign_id');
+
+    // Insert new assignment if no architect is assigned yet
+    if (!build_sql_insert('project_assignment', $arr)) {
+        $error['project_assignment'] = 140;
+        error_checker($return_url . '?id=' . encrypt($project_id));
+        return;
+    }
+
+    $success['project_assignment'] = "Senior architect assigned successfully.";
+    render_success($return_url . '?id=' . encrypt($project_id));
+}
+
+
+
+
 function architect_register()
 {
     global $arr;
@@ -2002,10 +2179,16 @@ function create_id($table, $id)
         'service'           => 'SER' . $date_today,
         'payment'           => 'PAY' . $date_today,
         'property'          => 'APP' . $date_today,
+        'architect'         => 'ARC' . $date_today,
+		'mechanical'        => 'MCH' . $date_today,
+		'electrical'        => 'ELC' . $date_today,
+		'structural'        => 'STR' . $date_today,
+        'project'           => 'PPJ' . $date_today,
         'property_image'    => 'IMG' . $date_today,
         'property_unit'     => 'UNT' . $date_today,
         'user'              => 'USR' . $date_today,
         'regulation'        => 'REG' . $date_today,
+        'project_assignment'=> 'APA' . $date_today,
     );
 
     $random_str = $table_prifix[$table] . rand_str();

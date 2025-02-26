@@ -31,6 +31,7 @@ $Properties = get_all('property');
                         input_hybrid("Architect's Email", "architect_email", $architect, true, 'email');
                         input_hybrid("Architect's ID Number", "architect_passport", $architect, true);
                         input_hybrid("Architect's KRA Pin", "architect_kra", $architect, true);
+                        input_select('Role As:', 'role', $row, true, array('senior', 'junior',));
                         ?>
                     </div>
 

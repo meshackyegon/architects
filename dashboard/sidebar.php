@@ -31,13 +31,20 @@
                 <div class="MySide" data-i18n="Properties">Properties</div>
             </a>
         </li>
+        <li class="menu-item <?= $page == "projects" ? "active" : "" ?>">
+            <a href="view_projects" class="menu-link">
+                <i class="menu-icon bx bx-building-house"></i>
+                <div class="MySide" data-i18n="Projects">Projects</div>
+            </a>
+        </li>
+        
 
-        <!-- <li class="menu-item  <?= $page == "landlord" ? "active" : "" ?>">
+        <li class="menu-item  <?= $page == "landlord" ? "active" : "" ?>">
             <a href="view_landlords" class="menu-link">
                 <i class="menu-icon fa-solid fa-user-group"></i>
                 <div class="MySide" data-i18n="Landlords">Landlords</div>
             </a>
-        </li> -->
+        </li>
         <li class="menu-item  <?= $page == "architect" ? "active" : "" ?>">
             <a href="view_architects" class="menu-link">
                 <i class="menu-icon fa-solid fa-user-group"></i>

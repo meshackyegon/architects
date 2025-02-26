@@ -32,6 +32,7 @@ $properties = get_all('property');
                         input_hybrid("Structural's ID Number", "structural_passport", $structural, false);
                         input_hybrid("Structural's Password", "structural_password", $structural, true);
                         input_hybrid("Structural's KRA Pin", "structural_kra", $structural, true);
+                        input_select('Role As:', 'role', $row, true, array('senior', 'junior',));
                         
                         ?>
                     </div>

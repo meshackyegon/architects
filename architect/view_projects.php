@@ -1,5 +1,5 @@
 <?php
-$page = 'projects';
+$page = 'structurals';
 include_once 'header.php';
 $projects = get_all('project');
 // cout($structurals);
@@ -24,7 +24,7 @@ for ($i = 0; $i < $num_columns; $i++) {
     );
 }
 
-$add = 'project.php';
+// $add = 'project.php';
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
     <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">View</span> Projects</h4>
@@ -52,7 +52,6 @@ $add = 'project.php';
                     $cnt = 1;
                     foreach ($projects as $project) {
                         $project_id = encrypt($project['project_id']);
-                        // cout(decrypt($project_id));
                     ?>
                         <tr>
                             <td> </td>
@@ -64,16 +63,11 @@ $add = 'project.php';
                             <td><?= $project['ward'] ?></td>
                             <td><?= $project['land_size'] ?></td>
                             <td>
+                                <!-- project_details?id=<?= $project_id ?> -->
+                                <a href="assign_engineer?id=<?= $project_id ?>" class="btn btn-info">
+                                    <i class="fas fa-eye"></i>Assign
+                                </a>
                                 
-                                <a href="book_visit?id=<?= $project_id ?>" class="btn btn-info">
-                                    <i class="fas fa-eye"></i>Book Visit
-                                </a>
-                                <a href="project_details?id=<?= $project_id ?>" class="btn btn-info">
-                                    <i class="fas fa-pencil-alt"></i>Edit
-                                </a>
-                                <a href="<?= base_url ?>model/delete?id=<?= $project_id ?>&table=<?= encrypt('project') ?>&page=<?= encrypt('view_projects') ?>&method=simple_admin" class="btn btn-danger mt-1">
-                                    <i class="fas fa-trash"></i>Delete
-                                </a>
                             </td>
                             <td><?= get_ordinal_month_year($project['project_date_created']) ?></td>
                         </tr>

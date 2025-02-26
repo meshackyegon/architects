@@ -32,6 +32,7 @@ $properties = get_all('property');
                         input_hybrid("Electrical's ID Number", "electrical_passport", $electrical, false);
                         input_hybrid("Electrical's Password", "electrical_password", $electrical, true);
                         input_hybrid("Electrical's KRA Pin", "electrical_kra", $electrical, true);
+                        input_select('Role As:', 'role', $row, true, array('senior', 'junior',));
                         
                         ?>
                     </div>

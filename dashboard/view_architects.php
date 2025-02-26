@@ -18,6 +18,7 @@ for ($i = 0; $i < $num_columns; $i++) {
         array('data' => 'Phone', 'title' => 'Phone'),
         array('data' => 'Properties', 'title' => 'Properties'),
         array('data' => 'Status', 'title' => 'Status'),
+        array('data' => 'Role', 'title' => 'Role'),
         array('data' => 'Action', 'title' => 'Action'),
         array('data' => 'Created On', 'title' => 'Created On')
     );
@@ -41,6 +42,7 @@ $add = 'architect.php';
                         <th>Phone</th>
                         <th>Properties</th>
                         <th>Status</th>
+                        <th>Role</th>
                         <th>Action</th>
                         <th>Created On</th>
                     </tr>
@@ -79,6 +81,7 @@ $add = 'architect.php';
 								?>
 
                             </td>
+                            <td><?= $architect['role'] ?></td>
 
                             <td>
                                 <a href="architect_details?id=<?= $architect_id ?>" class="btn btn-info">
