@@ -91,7 +91,7 @@ $arr['payment_status']= $status;
 if (build_sql_edit("payments", $arr, $checkoutRequestID, 'checkoutRequestID')) {
     logToFile("Payment information updated successfully");
     msg(true, 200, 'Payment information stored successfully', $paymentData);
-    $return_url = tenant_url . 'index';
+    // $return_url = tenant_url . 'index';
 } else {
     logToFile("Error updating payment information");
     msg(false, 500, 'Error updating payment information');
