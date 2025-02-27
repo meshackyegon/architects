@@ -45,6 +45,12 @@
                 <div class="MySide" data-i18n="Landlords">Landlords</div>
             </a>
         </li>
+        <li class="menu-item  <?= $page == "booking" ? "active" : "" ?>">
+            <a href="view_bookings" class="menu-link">
+                <i class="menu-icon fa-solid fa-user-group"></i>
+                <div class="MySide" data-i18n="Bookings">Bookings</div>
+            </a>
+        </li>
         <li class="menu-item  <?= $page == "architect" ? "active" : "" ?>">
             <a href="view_architects" class="menu-link">
                 <i class="menu-icon fa-solid fa-user-group"></i>

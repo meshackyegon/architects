@@ -223,12 +223,12 @@ $non_admin_percentage = round($non_admin_percentage);
 // cout($admin_percentage);
 
 // cout($non_admin_percentage);
-$sql = "SELECT SUM(payment.payment_amount) AS total_payment_amount 
-             FROM payment 
-             JOIN property ON payment.property_id = property.property_id 
-            ";
+$sql = "SELECT SUM(payments.amount) AS total_payment_amount 
+             FROM payments where payment_status='paid'
+             ";
 
 $row = select_rows($sql)[0];
+// cout($row);
 
 ?>
 
@@ -238,17 +238,17 @@ $row = select_rows($sql)[0];
 <div class="container-xxl flex-grow-1 container-p-y">
     <h2>ADMINISTRATIVE DASHBOARD</h2>
     <div class="row">
-        <div class="col-lg-4 mb-4 ml-2 mr-2">
+        <div class="col-lg-3 mb-3 ml-2 mr-2">
             <div class="card">
                 <div class="card-body">
-                    <a href="view_properties">
+                    <a href="view_projects">
                         <div class="d-flex" style="align-items: center; justify-content:center;">
                             <div style="background-color: #EFF4FF;" class="OverviewCircle">
                                 <img src="assets/img/icons/card.png" class="OverviewIcon" />
                             </div>
                             <div style="width: auto; margin-left:5px;">
-                                <h5 class="text-nowrap mb-2">Properties</h5>
-                                <small class="text-success text-nowrap fw-semibold"><?= sizeof(get_all('property')) ?></small>
+                                <h5 class="text-nowrap mb-2">Projects</h5>
+                                <small class="text-success text-nowrap fw-semibold"><?= sizeof(get_all('project')) ?></small>
                             </div>
                         </div>
                     </a>
@@ -257,7 +257,7 @@ $row = select_rows($sql)[0];
         </div>
 
 
-        <div class="col-lg-4 mb-4 ml-2 mr-2">
+        <div class="col-lg-3 mb-3 ml-2 mr-2">
             <div class="card">
                 <div class="card-body">
                     <a href="view_users">
@@ -276,7 +276,7 @@ $row = select_rows($sql)[0];
         </div>
 
 
-        <div class="col-lg-4 mb-4 ml-2 mr-2">
+        <div class="col-lg-3 mb-3 ml-2 mr-2">
             <div class="card">
                 <div class="card-body">
                     <a href="#">
@@ -285,14 +285,114 @@ $row = select_rows($sql)[0];
                                 <img src="assets/img/icons/card.png" class="OverviewIcon" />
                             </div>
                             <div style="width: auto; margin-left:5px;">
-                                <h5 class="text-nowrap mb-2">Rent Paid (<?= $currentYear ?>)</h5>
-                                <small class="text-success text-nowrap fw-semibold">Ksh. <?= number_format($totalYearAmount, 2) ?></small>
+                                <h5 class="text-nowrap mb-2">Payments Paid (<?= $currentYear ?>)</h5>
+                                <small class="text-success text-nowrap fw-semibold">Ksh. <?= number_format($row['total_payment_amount'], 2) ?></small>
                             </div>
                         </div>
                     </a>
                 </div>
             </div>
         </div>
+        <div class="col-lg-3 mb-3 ml-2 mr-2">
+            <div class="card">
+                <div class="card-body">
+                    <a href="#">
+                        <div class="d-flex" style="align-items: center; justify-content:center;">
+                            <div style="background-color: #EFF4FF;" class="OverviewCircle">
+                                <img src="assets/img/icons/card.png" class="OverviewIcon" />
+                            </div>
+                            <div style="width: auto; margin-left:5px;">
+                                <h5 class="text-nowrap mb-2">Payments Paid (<?= $currentYear ?>)</h5>
+                                <small class="text-success text-nowrap fw-semibold">Ksh. <?= number_format($row['total_payment_amount'], 2) ?></small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+
+
+
+
+
+
+
+    </div>
+    <div class="row">
+        <div class="col-lg-3 mb-3 ml-2 mr-2">
+            <div class="card">
+                <div class="card-body">
+                    <a href="view_architects">
+                        <div class="d-flex" style="align-items: center; justify-content:center;">
+                            <div style="background-color: #EFF4FF;" class="OverviewCircle">
+                                <img src="assets/img/icons/card.png" class="OverviewIcon" />
+                            </div>
+                            <div style="width: auto; margin-left:5px;">
+                                <h5 class="text-nowrap mb-2">Architects Enginners</h5>
+                                <small class="text-success text-nowrap fw-semibold"><?= sizeof(get_all('architect')) ?></small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 mb-3 ml-2 mr-2">
+            <div class="card">
+                <div class="card-body">
+                    <a href="view_stracturals">
+                        <div class="d-flex" style="align-items: center; justify-content:center;">
+                            <div style="background-color: #EFF4FF;" class="OverviewCircle">
+                                <img src="assets/img/icons/card.png" class="OverviewIcon" />
+                            </div>
+                            <div style="width: auto; margin-left:5px;">
+                                <h5 class="text-nowrap mb-2">Structurals Engineers</h5>
+                                <small class="text-success text-nowrap fw-semibold"><?= sizeof(get_all('structural')) ?></small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 mb-3 ml-2 mr-2">
+            <div class="card">
+                <div class="card-body">
+                    <a href="view_electricals">
+                        <div class="d-flex" style="align-items: center; justify-content:center;">
+                            <div style="background-color: #EFF4FF;" class="OverviewCircle">
+                                <img src="assets/img/icons/card.png" class="OverviewIcon" />
+                            </div>
+                            <div style="width: auto; margin-left:5px;">
+                                <h5 class="text-nowrap mb-2">Electricals Enginners</h5>
+                                <small class="text-success text-nowrap fw-semibold"><?= sizeof(get_all('electrical')) ?></small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3 mb-3 ml-2 mr-2">
+            <div class="card">
+                <div class="card-body">
+                    <a href="view_mechanicals">
+                        <div class="d-flex" style="align-items: center; justify-content:center;">
+                            <div style="background-color: #EFF4FF;" class="OverviewCircle">
+                                <img src="assets/img/icons/card.png" class="OverviewIcon" />
+                            </div>
+                            <div style="width: auto; margin-left:5px;">
+                                <h5 class="text-nowrap mb-2">Mechanical Engineers</h5>
+                                <small class="text-success text-nowrap fw-semibold"><?= sizeof(get_all('mechanical')) ?></small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+        
 
 
 

@@ -8,7 +8,7 @@ require_once 'header.php';
 // $users = get_landlord_users();
 $users = get_all('user');
 
-$num_columns = 11;
+$num_columns = 10;
 
 $column_indexes = range(0, $num_columns - 1);
 
@@ -24,7 +24,7 @@ for ($i = 0; $i < $num_columns; $i++) {
         array('data' => 'user_passport', 'title' => 'ID Number'),
         array('data' => 'user_dob', 'title' => 'DOB'),
         array('data' => 'user_kra', 'title' => 'KRA Pin'),
-        array('data' => 'property_id', 'title' => 'Property'),
+        // array('data' => 'property_id', 'title' => 'Property'),
         array('data' => 'preferred_date', 'title' => 'Preferred Date'),
         array('data' => 'action', 'title' => 'Action'),
     );
@@ -141,7 +141,7 @@ $houses = get_landlord_properties($profile['landlord_id']);
                         <th>ID Number</th>
                         <th>DOB</th>
                         <th>KRA Pin</th>
-                        <th>Property</th>
+                        <!-- <th>Property</th> -->
                         <th>Preferred Date</th>
                         <th>Action</th>
                     </tr>
@@ -166,7 +166,7 @@ $houses = get_landlord_properties($profile['landlord_id']);
                             <td> <?= $user['user_passport'] ?> </td>
                             <td> <?= $user['user_dob'] ?> </td>
                             <td> <?= $user['user_kra'] ?> </td>
-                            <td> <?= get_by_id('property', $user['property_id'])['property_name'] ?> </td>
+                            <!-- <td> <?= get_by_id('property', $user['property_id'])['property_name'] ?> </td> -->
                             <td> <?= $user['preferred_date'] ?> </td>
                             <td>
                                 <a href="<?= admin_url ?>user?id=<?= $user_id ?>" class="btn btn-success">

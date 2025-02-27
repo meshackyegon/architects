@@ -1,11 +1,11 @@
 <?php
 $page = 'projects';
 include_once 'header.php';
-$sql = "SELECT * FROM project WHERE user_id = '$profile[user_id]' ";
-$projects=select_rows($sql);
+// $sql = "SELECT * FROM project WHERE user_id = '$profile[user_id]' ";
+// $projects=select_rows($sql);
 // cout($project);
-// $projects = get_all('project');
-// cout($structurals);
+$projects = get_all('project');
+
 $num_columns = 9;
 
 $column_indexes = range(0, $num_columns - 1);
@@ -55,12 +55,8 @@ $add = 'project.php';
                     $cnt = 1;
                     foreach ($projects as $project) {
                         $project_id = encrypt($project['project_id']);
-                        // $visit = get_by_id('payments', $project['project_id']);
-                        $sql="SELECT * FROM payments WHERE project_id='$project[project_id]' ";
-                        $results=select_rows($sql);
-                        // cout($results);
-
-                        ?>
+                        // cout(decrypt($project_id));
+                    ?>
                         <tr>
                             <td> </td>
                             <td><?= $cnt ?></td>
@@ -71,25 +67,10 @@ $add = 'project.php';
                             <td><?= $project['ward'] ?></td>
                             <td><?= $project['land_size'] ?></td>
                             <td>
-                                 <?php
-                                $visitExists = false;
-                                foreach ($results as $result) {
-                                    if ($result['visit'] == 'visited') {
-                                        $visitExists = true;
-                                        echo "visited";
-                                        break; // No need to continue checking
-                                    }
-                                }
-
-                                // Show "Book Visit" if no visit record exists OR if the visit status is 'not visited'
-                                if (!$visitExists) {
-                                ?>
-                                    <a href="book_visit?id=<?= $project_id ?>" class="btn btn-info">
-                                        <i class="fas fa-eye"></i> Book Visit
-                                    </a>
-                                <?php
-                                }
-                                ?>
+                                
+                                <!-- <a href="book_visit?id=<?= $project_id ?>" class="btn btn-info">
+                                    <i class="fas fa-eye"></i>Book Visit
+                                </a> -->
                                 <a href="project_details?id=<?= $project_id ?>" class="btn btn-info">
                                     <i class="fas fa-pencil-alt"></i>Edit
                                 </a>

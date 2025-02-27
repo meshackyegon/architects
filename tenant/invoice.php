@@ -2,14 +2,14 @@
 $page = 'payment';
 include_once 'header.php';
 
-$property = get_by_id('property', security('id', 'GET'));
+$property = get_by_id('project', security('id', 'GET'));
 
 if (isset($_GET['unit'])) {
     $unit = get_by_id('property_unit', security('unit', 'GET'))['property_unit_name'];
     $amount = get_by_id('property_unit', security('unit', 'GET'))['property_unit_price'];
 } else {
     $unit = "-";
-    $amount = '50000';
+    $amount = '10000';
 }
 
 ?>
@@ -38,11 +38,11 @@ if (isset($_GET['unit'])) {
                             <h4>Invoice #3492</h4>
                             <div class="mb-2">
                                 <span class="me-1">Date Issues:</span>
-                                <span class="fw-semibold">25/08/2023</span>
+                                <span class="fw-semibold">27/02/2025</span>
                             </div>
                             <div>
                                 <span class="me-1">Date Due:</span>
-                                <span class="fw-semibold">29/08/2023</span>
+                                <span class="fw-semibold">27/02/2025</span>
                             </div>
                         </div>
                     </div>
@@ -97,9 +97,9 @@ if (isset($_GET['unit'])) {
                             <tr>
                                 <td><?= $profile['user_name'] ?></td>
                                 <td><?= $profile['user_phone'] ?></td>
-                                <td class="text-nowrap"><?= $property['property_name'] ?></td>
+                                <td class="text-nowrap"><?= $property['project_name'] ?></td>
                                 <td class="text-nowrap"><?= $unit ?></td>
-                                <td><?= $amount ?></td>
+                                <td><?= number_format($amount) ?></td>
                             </tr>
                         </tbody>
                     </table>
