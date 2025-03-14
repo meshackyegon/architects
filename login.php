@@ -24,7 +24,7 @@ include_once 'header.php';
                 <div class="col-lg-12">
                     <p>If you dont have an account, <a style="font-weight: 900;color: #007fff;" href="register">Create An Account Now.</a> </p>
                     <?php
-                    input_select('Log In As:', 'user_type', $row, true, array('landlord', 'user','architect','electrical', 'mechanical','structural',));
+                    input_select('Log In As:', 'user_type', $row, true, array('user','architect','electrical', 'mechanical','structural',));
                     
                     ?>
                     <div class="account-login-inner">
@@ -40,19 +40,6 @@ include_once 'header.php';
                             </div>
                         </form>
 
-
-
-                        <form id="landlord_login" action="<?= model_url ?>landlord_login" method="POST">
-
-                            <input type="text" required name="landlord_email" placeholder="Enter Your Email*">
-                            <input type="password" required name="landlord_password" placeholder="Enter Your Password*">
-                            <div class="btn-wrapper mt-0">
-                                <button class="theme-btn-1 btn btn-block" type="submit">LOG IN</button>
-                            </div>
-                            <div class="go-to-btn mt-20">
-                                <a href="#" title="Forgot Password?" data-toggle="modal" data-target="#ltn_forget_password_modal"><small>FORGOTTEN YOUR PASSWORD?</small></a>
-                            </div>
-                        </form>
                         <form id="architect_login" action="<?= model_url ?>architect_login" method="POST">
 
                             <input type="text" required name="architect_email" placeholder="Enter Your Email*">
@@ -149,22 +136,6 @@ include_once 'header.php';
 </style>
 
 <script>
-    // $(document).ready(function() {
-    //     var selectedValue;
-    //     $('#user_type').change(function() {
-    //         selectedValue = $(this).val()
-    //         if (selectedValue == 'landlord') {
-    //             $('#landlord_login').css('display', 'block');
-                
-    //             $('#mechanical_login').css('display', 'none');
-    //         }
-           
-    //         else{
-    //             $('#mechanical_login').css('display', 'block');
-    //             $('#landlord_login').css('display', 'none');
-    //         }
-    //     })
-    // });
     $(document).ready(function() {
     // Hide all login forms initially
     $('.account-login-inner form').hide();

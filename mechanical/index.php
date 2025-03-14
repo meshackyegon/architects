@@ -34,7 +34,7 @@ $row = select_rows($sqlAMOUNT)[0];
     <!--<script src="<?= admin_url ?>assets/js/dashboards-ecommerce.js"></script>-->
 </head>
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h3>Hello, <?= $profile['user_name'] ?>, welcome to the Domysuma Mechanical Panel </h3>
+    <h3>Hello, <?= $profile['mechanical_name'] ?>, welcome to the Domysuma Mechanical Panel </h3>
     <div class="row">
         <div class="col-lg-4 mb-4 ml-2 mr-2">
             <div class="card">

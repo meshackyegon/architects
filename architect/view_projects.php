@@ -2,7 +2,7 @@
 $page = 'structurals';
 include_once 'header.php';
 $projects = get_all('project');
-// cout($structurals);
+// cout($_SESSION);
 $num_columns = 9;
 
 $column_indexes = range(0, $num_columns - 1);
@@ -52,6 +52,7 @@ for ($i = 0; $i < $num_columns; $i++) {
                     $cnt = 1;
                     foreach ($projects as $project) {
                         $project_id = encrypt($project['project_id']);
+
                     ?>
                         <tr>
                             <td> </td>
@@ -61,12 +62,23 @@ for ($i = 0; $i < $num_columns; $i++) {
                             <td><?= $project['county'] ?></td>
                             <td><?= $project['subcounty'] ?></td>
                             <td><?= $project['ward'] ?></td>
-                            <td><?= $project['land_size'] ?></td>
+                            <td><?= $project['land_size']  ?></td>
                             <td>
-                                <!-- project_details?id=<?= $project_id ?> -->
+                                <?php if($_SESSION['architect_role']==='senior'){?>
                                 <a href="assign_engineer?id=<?= $project_id ?>" class="btn btn-info">
                                     <i class="fas fa-eye"></i>Assign
                                 </a>
+
+                                
+                                <a href="<?= base_url ?>model/update/close?id=<?= $project_id ?>&table=<?= encrypt('project_assignment') ?>&page=<?= encrypt('view_projects') ?>" class="btn rounded-pill btn-label-dark">
+										Close Project
+                                </a>
+                               
+                                <?php
+                                }else{
+                                   echo "denied"; 
+                                }
+                                ?>
                                 
                             </td>
                             <td><?= get_ordinal_month_year($project['project_date_created']) ?></td>

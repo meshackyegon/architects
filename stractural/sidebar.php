@@ -23,35 +23,47 @@
             </a>
         </li>
 
-        <li class="menu-item <?= $page == "property" ? "active" : "" ?>">
+        <!-- <li class="menu-item <?= $page == "property" ? "active" : "" ?>">
             <a href="view_properties" class="menu-link">
                 <i class="menu-icon fa-solid fa-umbrella"></i>
                 <div data-i18n="Properties">Properties</div>
             </a>
-        </li>
+        </li> -->
    
         
         
-         <li class="menu-item <?= $page == "payment" ? "active" : "" ?>">
+         <!-- <li class="menu-item <?= $page == "payment" ? "active" : "" ?>">
             <a href="view_payments" class="menu-link">
                 <i class="menu-icon fa-solid fa-user-group"></i>
                 <div data-i18n="Rent Payments">Rent Payments</div>
             </a>
-        </li>
-        
+        </li> -->
+<!--         
          <li class="menu-item <?= $page == "history" ? "active" : "" ?>">
             <a href="view_history" class="menu-link">
                 <i class="menu-icon fa-solid fa-user-group"></i>
                 <div data-i18n="Living History">Living History</div>
             </a>
+        </li> -->
+        <li class="menu-item <?= $page == "projects" ? "active" : "" ?>">
+            <a href="view_projects" class="menu-link">
+                <i class="menu-icon fa-solid fa-user-group"></i>
+                <div data-i18n="View Projects">"View Projects</div>
+            </a>
+        </li>
+         <li class="menu-item">
+           <a href="my-projects" class="menu-link">
+               <i class="menu-icon fa-solid fa-receipt"></i>
+               <div data-i18n="My Projects">My Projects</div>
+           </a>
         </li>
 
-        <!--<li class="menu-item">-->
-        <!--    <a href="view_invoices" class="menu-link">-->
-        <!--        <i class="menu-icon fa-solid fa-receipt"></i>-->
-        <!--        <div data-i18n="Invoices">Invoices</div>-->
-        <!--    </a>-->
-        <!--</li>-->
+        <!-- <li class="menu-item">
+           <a href="view_invoices" class="menu-link">
+               <i class="menu-icon fa-solid fa-receipt"></i>
+               <div data-i18n="Invoices">Invoices</div>
+           </a>
+        </li> -->
         
         <li class="menu-item <?= $page == "profile" ? "active" : "" ?>">
             <a href="profile" class="menu-link ">

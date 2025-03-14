@@ -52,6 +52,7 @@ function get_electrical_login()
         'electrical_email'       => $email,
         'electrical_name'        => $login['electrical_name'],
         'electrical_id'          => $login['electrical_id'],
+        'electrical_role'        => $login['role'],
         'success'               => array('login' => 204)
     );
     // cout( $session_login);

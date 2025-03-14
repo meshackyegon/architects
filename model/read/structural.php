@@ -52,6 +52,7 @@ function get_structural_login()
         'structural_email'       => $email,
         'structural_name'        => $login['structural_name'],
         'structural_id'          => $login['structural_id'],
+        'structural_role'        => $login['role'],
         'success'               => array('login' => 204)
     );
     // cout( $session_login);

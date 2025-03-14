@@ -3,7 +3,7 @@ $page = 'electricals';
 include_once 'header.php';
 $electricals = get_all('electrical');
 // cout($architects);
-$num_columns = 9;
+$num_columns = 10;
 
 $column_indexes = range(0, $num_columns - 1);
 
@@ -18,6 +18,7 @@ for ($i = 0; $i < $num_columns; $i++) {
         array('data' => 'Phone', 'title' => 'Phone'),
         array('data' => 'Properties', 'title' => 'Properties'),
         array('data' => 'Status', 'title' => 'Status'),
+        array('data' => 'Role', 'title' => 'Role'),
         array('data' => 'Action', 'title' => 'Action'),
         array('data' => 'Created On', 'title' => 'Created On')
     );
@@ -26,7 +27,7 @@ for ($i = 0; $i < $num_columns; $i++) {
 $add = 'electrical.php';
 ?>
 <div class="container-xxl flex-grow-1 container-p-y">
-    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">View</span> Electricalss</h4>
+    <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">View</span> Electricals</h4>
 
     <!-- DataTable with Buttons -->
     <div class="card">
@@ -41,6 +42,7 @@ $add = 'electrical.php';
                         <th>Phone</th>
                         <th>Properties</th>
                         <th>Status</th>
+                        <th>Role</th>
                         <th>Action</th>
                         <th>Created On</th>
                     </tr>
@@ -65,13 +67,13 @@ $add = 'electrical.php';
                             
                             <td>
                                 <?php
-								if ($architect['electrical_status'] == 'active') { ?>
+								if ($electrical['electrical_status'] == 'active') { ?>
 									<a href="<?= base_url ?>model/update/status?id=<?= $electrical_id ?>&table=<?= encrypt('electrical') ?>&page=<?= encrypt('view_electricals') ?>" class="btn rounded-pill btn-label-dark">
 										Deactivate
 									</a>
 								<?php
 								} else { ?>
-									<a href="<?= base_url ?>model/update/status?id=<?= $electrical_id ?>&table=<?= encrypt('electrical') ?>&page=<?= encrypt('view_electrical') ?>" class="btn rounded-pill btn-outline-primary">
+									<a href="<?= base_url ?>model/update/status?id=<?= $electrical_id ?>&table=<?= encrypt('electrical') ?>&page=<?= encrypt('view_electricals') ?>" class="btn rounded-pill btn-outline-primary">
 										Activate
 									</a>
 								<?php
@@ -79,7 +81,7 @@ $add = 'electrical.php';
 								?>
 
                             </td>
-
+                            <td><?= $electrical['role'] ?></td>
                             <td>
                                 <a href="electrical_details?id=<?= $electrical_id ?>" class="btn btn-info">
                                     <i class="fas fa-eye"></i>

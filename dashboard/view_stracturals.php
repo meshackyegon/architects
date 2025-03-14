@@ -3,7 +3,7 @@ $page = 'structurals';
 include_once 'header.php';
 $structurals = get_all('structural');
 // cout($structurals);
-$num_columns = 9;
+$num_columns = 10;
 
 $column_indexes = range(0, $num_columns - 1);
 
@@ -18,6 +18,7 @@ for ($i = 0; $i < $num_columns; $i++) {
         array('data' => 'Phone', 'title' => 'Phone'),
         array('data' => 'Properties', 'title' => 'Properties'),
         array('data' => 'Status', 'title' => 'Status'),
+        array('data' => 'Role', 'title' => 'Role'),
         array('data' => 'Action', 'title' => 'Action'),
         array('data' => 'Created On', 'title' => 'Created On')
     );
@@ -41,6 +42,7 @@ $add = 'structural.php';
                         <th>Phone</th>
                         <th>Properties</th>
                         <th>Status</th>
+                        <th>Role</th>
                         <th>Action</th>
                         <th>Created On</th>
                     </tr>
@@ -66,12 +68,12 @@ $add = 'structural.php';
                             <td>
                                 <?php
 								if ($structural['structural_status'] == 'active') { ?>
-									<a href="<?= base_url ?>model/update/status?id=<?= $structural_id ?>&table=<?= encrypt('structural') ?>&page=<?= encrypt('view_structurals') ?>" class="btn rounded-pill btn-label-dark">
+									<a href="<?= base_url ?>model/update/status?id=<?= $structural_id ?>&table=<?= encrypt('structural') ?>&page=<?= encrypt('view_stracturals') ?>" class="btn rounded-pill btn-label-dark">
 										Deactivate
 									</a>
 								<?php
 								} else { ?>
-									<a href="<?= base_url ?>model/update/status?id=<?= $structural_id ?>&table=<?= encrypt('structural') ?>&page=<?= encrypt('view_structurals') ?>" class="btn rounded-pill btn-outline-primary">
+									<a href="<?= base_url ?>model/update/status?id=<?= $structural_id ?>&table=<?= encrypt('structural') ?>&page=<?= encrypt('view_stracturals') ?>" class="btn rounded-pill btn-outline-primary">
 										Activate
 									</a>
 								<?php
@@ -79,7 +81,7 @@ $add = 'structural.php';
 								?>
 
                             </td>
-
+                            <td><?= $structural['role'] ?></td>
                             <td>
                                 <a href="structural_details?id=<?= $structural_id ?>" class="btn btn-info">
                                     <i class="fas fa-eye"></i>

@@ -24,13 +24,13 @@
         </li>
 
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Property Info</span></li>
-
+<!-- 
         <li class="menu-item <?= $page == "property" ? "active" : "" ?>">
             <a href="view_properties" class="menu-link">
                 <i class="menu-icon bx bx-building-house"></i>
                 <div class="MySide" data-i18n="Properties">Properties</div>
             </a>
-        </li>
+        </li> -->
         <li class="menu-item <?= $page == "projects" ? "active" : "" ?>">
             <a href="view_projects" class="menu-link">
                 <i class="menu-icon bx bx-building-house"></i>
@@ -39,12 +39,12 @@
         </li>
         
 
-        <li class="menu-item  <?= $page == "landlord" ? "active" : "" ?>">
+        <!-- <li class="menu-item  <?= $page == "landlord" ? "active" : "" ?>">
             <a href="view_landlords" class="menu-link">
                 <i class="menu-icon fa-solid fa-user-group"></i>
                 <div class="MySide" data-i18n="Landlords">Landlords</div>
             </a>
-        </li>
+        </li> -->
         <li class="menu-item  <?= $page == "booking" ? "active" : "" ?>">
             <a href="view_bookings" class="menu-link">
                 <i class="menu-icon fa-solid fa-user-group"></i>
@@ -83,22 +83,22 @@
             </a>
         </li>
 
-        <li class="menu-item  <?= $page == "services" ? "active" : "" ?>">
+        <!-- <li class="menu-item  <?= $page == "services" ? "active" : "" ?>">
             <a href="view_services" class="menu-link">
                 <i class="menu-icon bx bx-user-pin"></i>
                     <div class="MySide" data-i18n="Services">Services</div>
             </a>
-        </li>
+        </li> -->
 
 
         <li class="menu-header small text-uppercase"><span class="menu-header-text">Payments</span></li>
 
-        <li class="menu-item <?= $page == "payment" ? "active" : "" ?>">
+        <!-- <li class="menu-item <?= $page == "payment" ? "active" : "" ?>">
             <a href="view_payments" class="menu-link">
                 <i class="menu-icon bx bxs-credit-card-alt"></i>
                 <div class="MySide" data-i18n="Rent Payments">Rent Payments</div>
             </a>
-        </li>
+        </li> -->
 
 
         <li class="menu-item ">
@@ -109,7 +109,7 @@
             <ul class="menu-sub">
                 <li class="menu-item">
                     <a href="rent_reports.php" class="menu-link <?= $page == "rent_reports" ? "active" : "" ?>">
-                        <div data-i18n="Rent Reports">Rent Reports</div>
+                        <div data-i18n="Payment Reports">Payment Reports</div>
                     </a>
                 </li>
 

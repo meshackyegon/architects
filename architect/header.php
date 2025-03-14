@@ -212,8 +212,8 @@ endif;
                                                     </div>
                                                 </div>
                                                 <div class="flex-grow-1">
-                                                    <span class="fw-semibold d-block"><?= $profile['user_name'] ?></span>
-                                                    <small class="text-muted">Tenant</small>
+                                                    <span class="fw-semibold d-block"><?= $profile['architect_name'] ?></span>
+                                                    <small class="text-muted">Architect</small>
                                                 </div>
                                             </div>
                                         </a>

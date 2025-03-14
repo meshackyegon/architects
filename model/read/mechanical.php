@@ -52,6 +52,7 @@ function get_mechanical_login()
         'mechanical_email'       => $email,
         'mechanical_name'        => $login['mechanical_name'],
         'mechanical_id'          => $login['mechanical_id'],
+        'mechanical_role'        => $login['role'],
         'success'               => array('login' => 204)
     );
     // cout( $session_login);

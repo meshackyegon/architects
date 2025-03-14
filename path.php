@@ -30,7 +30,7 @@ if ($enLigne) {
     define('mechanical_uri', $http_host . "/mechanical");
     define('mechanical_url', $http_host . "/mechanical/");
 
-    define('structural_url', $http_host . "/stractural");
+    define('structural_uri', $http_host . "/stractural");
     define('structural_url', $http_host . "/stractural/");
 
     define('model_url', $http_model . '/');

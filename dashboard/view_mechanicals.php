@@ -3,7 +3,7 @@ $page = 'mechanicals';
 include_once 'header.php';
 $mechanicals = get_all('mechanical');
 // cout($architects);
-$num_columns = 9;
+$num_columns = 10;
 
 $column_indexes = range(0, $num_columns - 1);
 
@@ -18,6 +18,7 @@ for ($i = 0; $i < $num_columns; $i++) {
         array('data' => 'Phone', 'title' => 'Phone'),
         array('data' => 'Properties', 'title' => 'Properties'),
         array('data' => 'Status', 'title' => 'Status'),
+        array('data' => 'Role', 'title' => 'Role'),
         array('data' => 'Action', 'title' => 'Action'),
         array('data' => 'Created On', 'title' => 'Created On')
     );
@@ -41,6 +42,7 @@ $add = 'mechanical.php';
                         <th>Phone</th>
                         <th>Properties</th>
                         <th>Status</th>
+                        <th>Role</th>
                         <th>Action</th>
                         <th>Created On</th>
                     </tr>
@@ -79,6 +81,7 @@ $add = 'mechanical.php';
 								?>
 
                             </td>
+                            <td><?= $mechanical['role'] ?></td>
 
                             <td>
                                 <a href="mechanical_details?id=<?= $mechanical_id ?>" class="btn btn-info">

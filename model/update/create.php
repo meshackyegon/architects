@@ -12,6 +12,20 @@ if (!csrf_verify(security('csrf_token'))) render_warning(admin_url);
 unset($_POST['csrf_token']);
 // var_dump($_POST);
 switch ($action) {
+    
+    case 'arch':
+        post_arch();
+        break;
+    case 'elect':
+        post_elect();
+        break;
+    case 'mch':
+        post_mch();
+        break;
+    case 'struct':
+        post_struct();
+        break;
+        
     case 'user_edit':
         post_user_edit();
         break;
@@ -21,7 +35,15 @@ switch ($action) {
     case 'assign_architect':
         assign_architect();
         break;
-
+    case 'assign_junior_electrical':
+        assign_junior_electrical();
+        break;
+    case 'assign_junior_structural':
+        assign_junior_structural();
+        break;
+    case 'assign_junior_mechanical':
+        assign_junior_mechanical();
+        break;
        
     case 'structural_edit':
         post_structural_edit();
@@ -69,8 +91,14 @@ switch ($action) {
     case 'architect':
         post_architect();
         break;
+    case 'mechanical':
+        post_mechanical();
+        break;
     case 'electrical':
         post_electrical();
+        break;
+    case 'structural':
+        post_structural();
         break;
         
     case 'landlord_register':
@@ -660,14 +688,14 @@ function paybill_standing_order($rent, $phone, $uid, $starting_from, $end_date)
 
     // Second cURL request to create the standing order
     $data = [
-        "StandingOrderName" => "RENTPESA RENT PAYMENT",
+        "StandingOrderName" => "Domysuma RENT PAYMENT",
         "BusinessShortCode" => "4119835",
         "TransactionType" => "Standing Order Customer Pay Bill",
         "Amount" => $rent,
         "PartyA" => $phone,
         "ReceiverPartyIdentifierType" => "4",
         "CallBackURL" => "https://webhook.site/e210a221-fbb4-4ec5-bd0d-086afe397c09",
-        //"CallBackURL" => "https://rentpesa.com/standing_order_callback.php",
+        //"CallBackURL" => "https://Domysuma.com/standing_order_callback.php",
         "AccountReference" => $uid,
         "TransactionDesc" => "Rent Payment",
         "Frequency" => "5",
@@ -981,7 +1009,7 @@ function post_csv()
         //email($email, $subject, $name, $body);
 
 
-        $text4 = "Welcome " . $arr['user_name'] . " to RentPesa. You have successfully signed up as a user.";
+        $text4 = "Welcome " . $arr['user_name'] . " to Domysuma. You have successfully signed up as a user.";
         send_an_sms($arr['user_phone'], $text4);
     }
 
@@ -1035,7 +1063,7 @@ function post_tenant()
     email($email, $subject, $name, $body);
 
 
-    $text4 = "Welcome " . $arr['user_name'] . " to RentPesa. You have been successfully signed up as a user. Check your email for your account details.";
+    $text4 = "Welcome " . $arr['user_name'] . " to Domysuma. You have been successfully signed up as a user. Check your email for your account details.";
     send_an_sms($arr['user_phone'], $text4);
 
 
@@ -1370,10 +1398,59 @@ function post_architect()
     email($email, $subject, $name, $body);
 
 
-    $text4 = "Welcome " . $arr['architect_name'] . " to RentPesa. You have successfully signed up as a architect.";
+    $text4 = "Welcome " . $arr['architect_name'] . " to Domysuma. You have successfully signed up as a architect.";
     send_an_sms($arr['architect_phone'], $text4);
 
     $success['architect'] = 207;
+    render_success($return_url);
+}
+function post_mechanical()
+{
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = admin_url . 'view_mechanicals';
+
+    if (isset($_POST['property_id'])) {
+        $arr['property_id'] = implode(",", $_POST['property_id']);
+        unset($_POST['property_id']);
+    }
+
+
+    // cout($_POST);
+    $password = $_POST['mechanical_password'];
+
+    for_loop();
+
+    $arr['mechanical_password']       = password_hashing_hybrid_maker_checker($_POST['mechanical_password']);
+
+
+    $arr['mechanical_id']        = create_id('mechanical', 'mechanical_id');
+    $id                     = $arr['mechanical_id'];
+
+
+    if (!build_sql_insert('mechanical', $arr)) {
+        $error['mechanical'] = 140;
+        error_checker($return_url);
+    }
+
+    $email      = $arr['mechanical_email'];
+    $subject    = APP_NAME . ' mechanical Onboarding';
+    $name       = APP_NAME;
+    $body       = '<p style="font-family:Poppins, sans-serif;"> ';
+    $body       .= 'Hello, <b>' . $arr['mechanical_name'] . '</b> <br>';
+    $body       .= 'You have been successfully onboarded as a <b>' . $name . '</b> mechanical';
+    $body       .= 'Use <b>' . $password . '</b> as the password to log into the link below <br> ';
+    $body       .= 'Log in to your user dashboard here: <a href=" ' . mechanical_url . ' ">' . mechanical_url . '</a>';
+    $body       .= '</p>';
+
+    email($email, $subject, $name, $body);
+
+
+    $text4 = "Welcome " . $arr['mechanical_name'] . " to Domysuma. You have successfully signed up as an Mechanical Enginner.";
+    send_an_sms($arr['mechanical_phone'], $text4);
+
+    $success['mechanical'] = 207;
     render_success($return_url);
 }
 function post_project()
@@ -1456,10 +1533,59 @@ function post_electrical()
     email($email, $subject, $name, $body);
 
 
-    $text4 = "Welcome " . $arr['electrical_name'] . " to RentPesa. You have successfully signed up as a electrical.";
+    $text4 = "Welcome " . $arr['electrical_name'] . " to Domysuma. You have successfully signed up as a electrical.";
     send_an_sms($arr['electrical_phone'], $text4);
 
     $success['electrical'] = 207;
+    render_success($return_url);
+}
+function post_structural()
+{
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = admin_url . 'view_stracturals';
+
+    if (isset($_POST['property_id'])) {
+        $arr['property_id'] = implode(",", $_POST['property_id']);
+        unset($_POST['property_id']);
+    }
+
+
+    // cout($_POST);
+    $password = $_POST['structural_password'];
+
+    for_loop();
+
+    $arr['structural_password']       = password_hashing_hybrid_maker_checker($_POST['structural_password']);
+
+
+    $arr['structural_id']        = create_id('structural', 'structural_id');
+    $id                     = $arr['structural_id'];
+
+
+    if (!build_sql_insert('structural', $arr)) {
+        $error['structural'] = 140;
+        error_checker($return_url);
+    }
+
+    $email      = $arr['structural_email'];
+    $subject    = APP_NAME . ' structural Onboarding';
+    $name       = APP_NAME;
+    $body       = '<p style="font-family:Poppins, sans-serif;"> ';
+    $body       .= 'Hello, <b>' . $arr['structural_name'] . '</b> <br>';
+    $body       .= 'You have been successfully onboarded as a <b>' . $name . '</b> electrical';
+    $body       .= 'Use <b>' . $password . '</b> as the password to log into the link below <br> ';
+    $body       .= 'Log in to your user dashboard here: <a href=" ' . structural_url . ' ">' . structural_url . '</a>';
+    $body       .= '</p>';
+
+    email($email, $subject, $name, $body);
+
+
+    $text4 = "Welcome " . $arr['structural_name'] . " to Domysuma. You have successfully signed up as a structural engineer.";
+    send_an_sms($arr['structural_phone'], $text4);
+
+    $success['structural'] = 207;
     render_success($return_url);
 }
 
@@ -1506,7 +1632,7 @@ function post_landlord()
     email($email, $subject, $name, $body);
 
 
-    $text4 = "Welcome " . $arr['landlord_name'] . " to RentPesa. You have successfully signed up as a landlord.";
+    $text4 = "Welcome " . $arr['landlord_name'] . " to Domysuma. You have successfully signed up as a landlord.";
     send_an_sms($arr['landlord_phone'], $text4);
 
     $success['landlord'] = 207;
@@ -1517,6 +1643,7 @@ function assign_architect() {
     global $error;
     global $success;
     $return_url = architects_url . 'assign_engineer';
+    cout($_POST);
 
     if (!isset($_POST['project_id']) || empty($_POST['project_id'])) {
         $error['project_assignment'] = "Project ID is required.";
@@ -1574,7 +1701,197 @@ function assign_architect() {
     $success['project_assignment'] = "Senior architect assigned successfully.";
     render_success($return_url . '?id=' . encrypt($project_id));
 }
+function assign_junior_electrical() {
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = electrical_url . 'assign_engineer';
+    cout($_POST);
 
+    if (!isset($_POST['project_id']) || empty($_POST['project_id'])) {
+        $error['project_assignment'] = "Project ID is required.";
+        error_checker($return_url);
+        return;
+    }
+
+    $project_id = $_POST['project_id'];
+
+    if (isset($_POST['property_id'])) {
+        $arr['property_id'] = implode(",", $_POST['property_id']);
+        unset($_POST['property_id']);
+    }
+
+    // Check if the project already has an assigned architect
+    $existing_assignment = get_by_field('project_assignment', 'project_id', $project_id);
+    // cout($existing_assignment);
+
+    if ($existing_assignment) {
+        $table_id = $existing_assignment['assign_id'];
+
+        // If senior architect is assigned, update the junior architect
+        if (!empty($existing_assignment['senior_electrical_id']) && empty($existing_assignment['junior_electrical_id'])) {
+            for_loop();
+          
+
+            if (!build_sql_edit('project_assignment', $arr, $table_id, 'assign_id')) {
+                $error['project_assignment'] = "Failed to update junior architect.";
+                error_checker($return_url . '?id=' . encrypt($project_id));
+                return;
+            }
+
+            $success['project_assignment'] = "Junior electrical assigned successfully.";
+            render_success($return_url . '?id=' . encrypt($project_id));
+            return;
+        }
+
+        $error['project_assignment'] = "This project already has both a senior and a junior architect.";
+        error_checker($return_url . '?id=' . encrypt($project_id));
+        return;
+    }
+
+    for_loop();
+
+    // Assign unique ID for project assignment
+    $arr['assign_id'] = create_id('project_assignment', 'assign_id');
+
+    // Insert new assignment if no architect is assigned yet
+    if (!build_sql_insert('project_assignment', $arr)) {
+        $error['project_assignment'] = 140;
+        error_checker($return_url . '?id=' . encrypt($project_id));
+        return;
+    }
+
+    $success['project_assignment'] = "Junior electrical assigned successfully.";
+    render_success($return_url . '?id=' . encrypt($project_id));
+}
+function assign_junior_mechanical() {
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = mechanical_url . 'assign_engineer';
+    cout($_POST);
+
+    if (!isset($_POST['project_id']) || empty($_POST['project_id'])) {
+        $error['project_assignment'] = "Project ID is required.";
+        error_checker($return_url);
+        return;
+    }
+
+    $project_id = $_POST['project_id'];
+
+    if (isset($_POST['property_id'])) {
+        $arr['property_id'] = implode(",", $_POST['property_id']);
+        unset($_POST['property_id']);
+    }
+
+    // Check if the project already has an assigned architect
+    $existing_assignment = get_by_field('project_assignment', 'project_id', $project_id);
+    // cout($existing_assignment);
+
+    if ($existing_assignment) {
+        $table_id = $existing_assignment['assign_id'];
+
+        // If senior architect is assigned, update the junior architect
+        if (!empty($existing_assignment['senior_mechanical_id']) && empty($existing_assignment['junior_mechanical_id'])) {
+            for_loop();
+          
+
+            if (!build_sql_edit('project_assignment', $arr, $table_id, 'assign_id')) {
+                $error['project_assignment'] = "Failed to update junior mechanical.";
+                error_checker($return_url . '?id=' . encrypt($project_id));
+                return;
+            }
+
+            $success['project_assignment'] = "Junior electrical assigned successfully.";
+            render_success($return_url . '?id=' . encrypt($project_id));
+            return;
+        }
+
+        $error['project_assignment'] = "This project already has both a senior and a junior architect.";
+        error_checker($return_url . '?id=' . encrypt($project_id));
+        return;
+    }
+
+    for_loop();
+
+    // Assign unique ID for project assignment
+    $arr['assign_id'] = create_id('project_assignment', 'assign_id');
+
+    // Insert new assignment if no architect is assigned yet
+    if (!build_sql_insert('project_assignment', $arr)) {
+        $error['project_assignment'] = 140;
+        error_checker($return_url . '?id=' . encrypt($project_id));
+        return;
+    }
+
+    $success['project_assignment'] = "Junior mechanical assigned successfully.";
+    render_success($return_url . '?id=' . encrypt($project_id));
+}
+
+function assign_junior_structural() {
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = structural_url . '/assign_engineer';
+    // cout($_POST);
+
+    if (!isset($_POST['project_id']) || empty($_POST['project_id'])) {
+        $error['project_assignment'] = "Project ID is required.";
+        error_checker($return_url);
+        return;
+    }
+
+    $project_id = $_POST['project_id'];
+
+    if (isset($_POST['property_id'])) {
+        $arr['property_id'] = implode(",", $_POST['property_id']);
+        unset($_POST['property_id']);
+    }
+
+    // Check if the project already has an assigned architect
+    $existing_assignment = get_by_field('project_assignment', 'project_id', $project_id);
+    // cout($existing_assignment);
+
+    if ($existing_assignment) {
+        $table_id = $existing_assignment['assign_id'];
+
+        // If senior architect is assigned, update the junior architect
+        if (!empty($existing_assignment['senior_structural_id']) && empty($existing_assignment['junior_structural_id'])) {
+            for_loop();
+          
+
+            if (!build_sql_edit('project_assignment', $arr, $table_id, 'assign_id')) {
+                $error['project_assignment'] = "Failed to update junior architect.";
+                error_checker($return_url . '?id=' . encrypt($project_id));
+                return;
+            }
+
+            $success['project_assignment'] = "Junior structural assigned successfully.";
+            render_success($return_url . '?id=' . encrypt($project_id));
+            return;
+            
+        }
+
+        $error['project_assignment'] = "This project already has both a senior and a junior architect.";
+        error_checker($return_url . '?id=' . encrypt($project_id));
+        return;
+    }
+
+    for_loop();
+
+    // Assign unique ID for project assignment
+    $arr['assign_id'] = create_id('project_assignment', 'assign_id');
+
+    // Insert new assignment if no architect is assigned yet
+    if (!build_sql_insert('project_assignment', $arr)) {
+        $error['project_assignment'] = 140;
+        error_checker($return_url . '?id=' . encrypt($project_id));
+        return;
+    }
+
+    $success['project_assignment'] = "Junior electrical assigned successfully.";
+    render_success($return_url . '?id=' . encrypt($project_id));
+}
 
 
 
@@ -1640,12 +1957,8 @@ function electrical_register()
     for_loop();
 
     $arr['electrical_password']       = password_hashing_hybrid_maker_checker($_POST['electrical_password']);
-
-    // $arr['architect_id']        = create_id('architect', 'architect_id');
     $id = $arr['electrical_id']   = create_id('electrical', 'electrical_id');
-    // cout($arr['architect_id']);
-    
-    // // $id                     = $arr['architect_id'];
+
     $password = $_POST['electrical_password'];
 
 
@@ -1790,6 +2103,186 @@ function structural_register()
     $success['structural'] = 207;
     render_success(structural_url);
 }
+function post_arch()
+{
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = architects_url . 'arch-drawing';
+
+
+    for_loop();
+
+    if (!empty($_FILES['arch_pdf']['name'])) $arr['arch_pdf'] = upload('arch_pdf');
+    // if (isset($_SESSION['edit'])) {
+    //     $id = $_SESSION['edit'];
+    //     if (!empty($arr['arch_pdf'])) delete_file('arch_pdf', 'archdrawing', 'archdrawing_id', $id);
+
+    //     unset($_SESSION['edit']);
+
+    //     if (!build_sql_edit('service', $arr, $id, 'service_id')) {
+    //         $error['service'] = 133;
+    //         error_checker($return_url);
+    //     }
+
+    //     $success['service'] = 202;
+    //     render_success($return_url);
+    // }
+    if (!empty($_FILES['arch_file']['name'])) $arr['arch_file'] = upload('arch_file');
+    if (!empty($_FILES['arch_img']['name'])) $arr['arch_img'] = upload('arch_img');
+    if (!empty($_FILES['site_layout_pdf']['name'])) $arr['site_layout_pdf'] = upload('site_layout_pdf');
+    if (!empty($_FILES['floor_pdf']['name'])) $arr['floor_pdf'] = upload('floor_pdf');
+    if (!empty($_FILES['elevation_pdf']['name'])) $arr['elevation_pdf'] = upload('elevation_pdf');
+    if (!empty($_FILES['section_pdf']['name'])) $arr['section_pdf'] = upload('section_pdf');
+    if (!empty($_FILES['roof_pdf']['name'])) $arr['roof_pdf'] = upload('roof_pdf');
+    if (!empty($_FILES['detail_drawing_pdf']['name'])) $arr['detail_drawing_pdf'] = upload('detail_drawing_pdf');
+    if (!empty($_FILES['arch_calculation_pdf']['name'])) $arr['arch_calculation_pdf'] = upload('arch_calculation_pdf');
+    if (!empty($_FILES['working_drawings_pdf']['name'])) $arr['working_drawings_pdf'] = upload('working_drawings_pdf');
+    // if (isset($_SESSION['edit'])) {
+    //     $id = $_SESSION['edit'];
+    //     if (!empty($arr['arch_pdf'])) delete_file('arch_pdf', 'archdrawing', 'archdrawing_id', $id);
+
+    //     unset($_SESSION['edit']);
+
+    //     if (!build_sql_edit('service', $arr, $id, 'service_id')) {
+    //         $error['service'] = 133;
+    //         error_checker($return_url);
+    //     }
+
+    //     $success['service'] = 202;
+    //     render_success($return_url);
+    // }
+    // cout($_POST);
+    // cout($_FILES);
+    $id = $arr['archdrawing_id']    = create_id('archdrawing', 'archdrawing_id');
+
+    if (!build_sql_insert('archdrawing', $arr)) {
+        $error['archdrawing'] = 139;
+        error_checker($return_url);
+    }
+
+    $success['archdrawing'] = 203;
+    render_success($return_url);
+
+}
+function post_struct(){
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = structural_url . '/struct-drawing';
+
+
+    for_loop();
+    // cout($_POST);
+    // cout($_FILES);
+
+    if (!empty($_FILES['strctural_pdf']['name'])) $arr['strctural_pdf'] = upload('strctural_pdf');
+    if (!empty($_FILES['structural_file']['name'])) $arr['structural_file'] = upload('structural_file');
+    if (!empty($_FILES['foundation_layout_pdf']['name'])) $arr['foundation_layout_pdf'] = upload('foundation_layout_pdf');
+    if (!empty($_FILES['foundation_layout_file']['name'])) $arr['foundation_layout_file'] = upload('foundation_layout_file');
+    if (!empty($_FILES['framing_drawing_pdf']['name'])) $arr['framing_drawing_pdf'] = upload('framing_drawing_pdf');
+    if (!empty($_FILES['framing_drawing_file']['name'])) $arr['framing_drawing_file'] = upload('framing_drawing_file');
+    if (!empty($_FILES['reinforcement_frawing_pdf']['name'])) $arr['reinforcement_frawing_pdf'] = upload('reinforcement_frawing_pdf');
+    if (!empty($_FILES['reinforcement_frawing_file']['name'])) $arr['reinforcement_frawing_file'] = upload('reinforcement_frawing_file');
+    if (!empty($_FILES['connection_pdf']['name'])) $arr['connection_pdf'] = upload('connection_pdf');
+    if (!empty($_FILES['connection_file']['name'])) $arr['connection_file'] = upload('connection_file');
+    if (!empty($_FILES['structural_calculation_pdf']['name'])) $arr['structural_calculation_pdf'] = upload('structural_calculation_pdf');
+
+    if (!empty($_FILES['structural_calculation_file']['name'])) $arr['structural_calculation_file'] = upload('structural_calculation_file');
+    if (!empty($_FILES['combined_drawing_pdf']['name'])) $arr['combined_drawing_pdf'] = upload('combined_drawing_pdf');
+    if (!empty($_FILES['combined_drawing_file']['name'])) $arr['combined_drawing_file'] = upload('combined_drawing_file');
+
+    
+    $id = $arr['structdrawing_id']    = create_id('structdrawing', 'structdrawing_id');
+    $project_id = $arr['project_id'];
+
+    if (!build_sql_insert('structdrawing', $arr)) {
+        $error['structdrawing'] = 139;
+        error_checker($return_url . '?id=' .  encrypt($project_id));
+    }
+
+    $success['structdrawing'] = 203;
+    render_success($return_url . '?id=' .  encrypt($project_id));
+
+}
+function post_mch(){
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = mechanical_url . 'view_drawing';
+
+
+    for_loop();
+    // cout($_POST);
+    // cout($_FILES);
+
+    if (!empty($_FILES['plumbing_pdf']['name'])) $arr['plumbing_pdf'] = upload('plumbing_pdf');
+    if (!empty($_FILES['plumbing_file']['name'])) $arr['plumbing_file'] = upload('plumbing_file');
+    if (!empty($_FILES['piping_pdf']['name'])) $arr['piping_pdf'] = upload('piping_pdf');
+    if (!empty($_FILES['piping_file']['name'])) $arr['piping_file'] = upload('piping_file');
+    if (!empty($_FILES['equipment_installation_pdf']['name'])) $arr['equipment_installation_pdf'] = upload('equipment_installation_pdf');
+    if (!empty($_FILES['equipment_installation_file']['name'])) $arr['equipment_installation_file'] = upload('equipment_installation_file');
+    if (!empty($_FILES['mechaical_fabrication_pdf']['name'])) $arr['mechaical_fabrication_pdf'] = upload('mechaical_fabrication_pdf');
+    if (!empty($_FILES['mechaical_fabrication_file']['name'])) $arr['mechaical_fabrication_file'] = upload('mechaical_fabrication_file');
+    if (!empty($_FILES['full_mechanical_pdf']['name'])) $arr['full_mechanical_pdf'] = upload('full_mechanical_pdf');
+    if (!empty($_FILES['full_mechanical_file']['name'])) $arr['full_mechanical_file'] = upload('full_mechanical_file');
+    
+
+    
+    $id = $arr['mechdrawing_id']    = create_id('mechdrawing', 'mechdrawing_id');
+    $project_id = $arr['project_id'];
+
+    if (!build_sql_insert('mechdrawing', $arr)) {
+        $error['mechdrawing'] = 139;
+        error_checker($return_url . '?id=' .  encrypt($project_id));
+    }
+
+    $success['mechdrawing'] = 203;
+    render_success($return_url . '?id=' .  encrypt($project_id));
+
+}
+function post_elect(){
+    global $arr;
+    global $error;
+    global $success;
+    $return_url = electrical_url . 'view_drawing';
+
+
+    for_loop();
+    // cout($_POST);
+    // cout($_FILES);
+
+    if (!empty($_FILES['single_line_pdf']['name'])) $arr['single_line_pdf'] = upload('single_line_pdf');
+    if (!empty($_FILES['single_line_file']['name'])) $arr['single_line_file'] = upload('single_line_file');
+    if (!empty($_FILES['wiring_diagram_pdf']['name'])) $arr['wiring_diagram_pdf'] = upload('wiring_diagram_pdf');
+    if (!empty($_FILES['wiring_diagram_file']['name'])) $arr['wiring_diagram_file'] = upload('wiring_diagram_file');
+    if (!empty($_FILES['schematic_diagrams_pdf']['name'])) $arr['schematic_diagrams_pdf'] = upload('schematic_diagrams_pdf');
+    if (!empty($_FILES['schematic_diagrams_file']['name'])) $arr['schematic_diagrams_file'] = upload('schematic_diagrams_file');
+    if (!empty($_FILES['power_lighting_plans_pdf']['name'])) $arr['power_lighting_plans_pdf'] = upload('power_lighting_plans_pdf');
+    if (!empty($_FILES['power_lighting_plans_file']['name'])) $arr['power_lighting_plans_file'] = upload('power_lighting_plans_file');
+    if (!empty($_FILES['control_instrumentation_pdf']['name'])) $arr['control_instrumentation_pdf'] = upload('control_instrumentation_pdf');
+    if (!empty($_FILES['control_instrumentation_file']['name'])) $arr['control_instrumentation_file'] = upload('control_instrumentation_file');
+    if (!empty($_FILES['panel_schedules_pdf']['name'])) $arr['panel_schedules_pdf'] = upload('panel_schedules_pdf');
+    if (!empty($_FILES['panel_schedules_file']['name'])) $arr['panel_schedules_file'] = upload('panel_schedules_file');
+    if (!empty($_FILES['cable_conduit_pdf']['name'])) $arr['cable_conduit_pdf'] = upload('cable_conduit_pdf');
+    if (!empty($_FILES['cable_conduit_file']['name'])) $arr['cable_conduit_file'] = upload('cable_conduit_file');
+    if (!empty($_FILES['layout_elevation_pdf']['name'])) $arr['layout_elevation_pdf'] = upload('layout_elevation_pdf');
+    if (!empty($_FILES['layout_elevation_file']['name'])) $arr['layout_elevation_file'] = upload('layout_elevation_file');
+    
+
+    
+    $id = $arr['electdrawing_id']    = create_id('electdrawing', 'electdrawing_id');
+    $project_id = $arr['project_id'];
+
+    if (!build_sql_insert('electdrawing', $arr)) {
+        $error['electdrawing'] = 139;
+        error_checker($return_url . '?id=' .  encrypt($project_id));
+    }
+
+    $success['electdrawing'] = 203;
+    render_success($return_url . '?id=' .  encrypt($project_id));
+
+}
 function landlord_register()
 {
     global $arr;
@@ -1834,7 +2327,7 @@ function landlord_register()
     email($email, $subject, $name, $body);
 
 
-    $text4 = "Welcome to RentPesa! Your registration as a landlord is being processed. Please wait for admin activation to start using your account. You may check the email you used to sign up for further details. Thank you!";
+    $text4 = "Welcome to Domysuma! Your registration as a landlord is being processed. Please wait for admin activation to start using your account. You may check the email you used to sign up for further details. Thank you!";
     send_an_sms($arr['landlord_phone'], $text4);
 
     $success['landlord'] = 207;
@@ -2188,6 +2681,10 @@ function create_id($table, $id)
         'property_unit'     => 'UNT' . $date_today,
         'user'              => 'USR' . $date_today,
         'regulation'        => 'REG' . $date_today,
+        'archdrawing'       => 'ARD' . $date_today,
+        'structdrawing'     => 'STD' . $date_today,
+        'electdrawing'      => 'ECD' . $date_today,
+        'mechdrawing'       => 'MCD' . $date_today,
         'project_assignment'=> 'APA' . $date_today,
     );
 

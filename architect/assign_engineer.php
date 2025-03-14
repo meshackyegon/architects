@@ -6,14 +6,17 @@ $current_year = date("Y");
 $project = get_by_id('project', security('id', 'GET'));
 // cout($project);
 // $assigned_architect = get_by_field('project_assignment', 'project_id', $project['project_id']); 
-$assigned_architect = get_by_field(
-    'project_assignment', 
-    'project_id', 
-    $project['project_id']
-);
-$senior_architects = get_all_where('architect', ['role' => 'senior', 'architect_status' => 'active']);
-$junior_architects = get_all_where('architect', ['role' => 'junior', 'architect_status' => 'active']);
+$assigned_architect = get_by_field('project_assignment', 'project_id', $project['project_id']);
+$assigned_electrical = get_by_field('project_assignment','project_id', $project['project_id']);
+$assigned_mechanical = get_by_field('project_assignment', 'project_id', $project['project_id']);
+$assigned_structural = get_by_field('project_assignment', 'project_id', $project['project_id']);
 
+$senior_architects = get_all_where('architect', ['role' => 'senior', 'architect_status' => 'active']);
+$senior_electricals = get_all_where('electrical', ['role' => 'senior', 'electrical_status' => 'active']);
+$senior_mechanicals = get_all_where('mechanical', ['role' => 'senior', 'mechanical_status' => 'active']);
+$senior_structurals = get_all_where('structural', ['role' => 'senior', 'structural_status' => 'active']);
+$junior_architects = get_all_where('architect', ['role' => 'junior', 'architect_status' => 'active']);
+// cout($senior_mechanicals);
 ?>
 
 <div class="container-fluid">
@@ -63,6 +66,39 @@ $junior_architects = get_all_where('architect', ['role' => 'junior', 'architect_
                         </select>
                     </div>
                 <?php endif; ?>
+                <div class="form-group">
+                    <label for="senior_electrical">Select Senior Electrical</label>
+                    <select class="form-control" name="senior_electrical_id" id="senior_electrical" required <?= !empty($assigned_electrical['senior_electrical_id']) ? 'disabled' : '' ?>>
+                        <option value="">-- Select Senior Electrical --</option>
+                        <?php foreach ($senior_electricals as $electrical): ?>
+                            <option value="<?= $electrical['electrical_id'] ?>" <?= ($assigned_electrical['senior_electrical_id'] ?? '') == $electrical['electrical_id'] ? 'selected' : '' ?>>
+                                <?= $electrical['electrical_name'] ?> (<?=$electrical['electrical_email'] ?>)
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="senior_architect">Select Senior Mechanical</label>
+                    <select class="form-control" name="senior_mechanical_id" id="senior_mechanical" required <?= !empty($assigned_mechanical['senior_mechanical_id']) ? 'disabled' : '' ?>>
+                        <option value="">-- Select Senior Mechanical --</option>
+                        <?php foreach ($senior_mechanicals as $mechanical): ?>
+                            <option value="<?= $mechanical['mechanical_id'] ?>" <?= ($assigned_mechanical['senior_mechanical_id'] ?? '') == $mechanical['mechanical_id'] ? 'selected' : '' ?>>
+                                <?= $mechanical['mechanical_name'] ?> (<?= $mechanical['mechanical_email'] ?>)
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="senior_architect">Select Senior Structural</label>
+                    <select class="form-control" name="senior_structural_id" id="senior_structural" required <?= !empty($assigned_structural['senior_structural_id']) ? 'disabled' : '' ?>>
+                        <option value="">-- Select Senior structural --</option>
+                        <?php foreach ($senior_structurals as $structural): ?>
+                            <option value="<?= $structural['structural_id'] ?>" <?= ($assigned_structural['senior_structural_id'] ?? '') == $structural['structural_id'] ? 'selected' : '' ?>>
+                                <?= $structural['structural_name'] ?> (<?= $structural['structural_email'] ?>)
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
                 <div class="form-group text-center">
                     <button class="btn btn-primary" type="submit">Submit</button>
